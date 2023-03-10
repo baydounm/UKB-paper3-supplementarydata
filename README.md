@@ -4,8 +4,7 @@ Supplementary data and materials for UK Biobank manuscript entitled: "Life’s e
 ├── FIGURES
 │   ├── FIGURE2
 │   │   ├── FIGURE2.smcl
-│   │   
-│   ├── FIGURE 3
+|   ├── FIGURE 3
 │   │   └──DATASHEET1_INFECTIONBURDEN_HOSPNOHOSP.xlx
 │   │   └──FIGURE3_TOPHITS.txt
 │   │   └──INFECTION_HOSPNOHOSP.dta
@@ -15,4 +14,3 @@ Supplementary data and materials for UK Biobank manuscript entitled: "Life’s e
 │   │   └──Weight_for_plots.xlx
 └── STATA_SCRIPT
     └── UKB_PAPER3_LE8INFECTDEM_FINAL_GITHUB.do
-
