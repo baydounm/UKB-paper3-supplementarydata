@@ -3,6 +3,8 @@ Supplementary data and materials for UK Biobank manuscript entitled: "Life’s e
 
 Two folders named FIGURES and STATA_SCRIPT can be downloaded and their structure is below. FIGURE2 under FIGURES, included the Stata FIGURE2.smcl file from Stata.
 FIGURE3 sub-folder under FIGURES folder includes all the materials needed to generate the volcano plot and also includes the R script for the plot which uses both a *.dta Stata dataset and an excel sheet named "Weight_for_plot" derived from DATASHEET1_INFECTIONBURDEN_HOSPNOHOSP.xlx and more directly from INFECTION_HOSPNOHOSP.dta, which includes the prevalence of infections within the hospital-treated and non-hospital treated infection groups. 
+FIGURES1 is supplementary Figure S1 .gph file. OUTPUT and OUTPUT2 contains some Stata output for main analysis and sensitivity analysis (excluding participants with <3 y of follow-up), respectively. 
+
 
 
 ├── FIGURES
@@ -21,3 +23,5 @@ FIGURE3 sub-folder under FIGURES folder includes all the materials needed to gen
        └── FIGURES1fin.gph
 └─ STATA_SCRIPT
     └── UKB_PAPER3_LE8INFECTDEM_FINAL_GITHUB.do
+└─OUTPUT
+└─OUTPUT2
