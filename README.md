@@ -16,5 +16,8 @@ FIGURE3 sub-folder under FIGURES folder includes all the materials needed to gen
 │   │   └──R_SCRIPT_OSORIO_Z_FINAL.R
 │   │   └──volcano_plot_FINALIZED.pdf
 │   │   └──Weight_for_plots.xlx
-└── STATA_SCRIPT
+└
+└   ├──FIGURES1
+       └── FIGURES1fin.gph
+└─ STATA_SCRIPT
     └── UKB_PAPER3_LE8INFECTDEM_FINAL_GITHUB.do
