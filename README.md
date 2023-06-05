@@ -8,20 +8,20 @@ FIGURES1 is supplementary Figure S1 .gph file. OUTPUT and OUTPUT2 contains some 
 
 
 ├── FIGURES
-│   ├── FIGURE2
-│   │   ├── FIGURE2.smcl
-|   ├── FIGURE 3
+│   ├── FIGURE1
+│   │   ├── FIGURE1.gph
+|   ├── FIGURE2
 │   │   └──DATASHEET1_INFECTIONBURDEN_HOSPNOHOSP.xlx
-│   │   └──FIGURE3_TOPHITS.txt
+│   │   └──FIGURE2_TOPHITS.txt
 │   │   └──INFECTION_HOSPNOHOSP.dta
 │   │   └──Outputdata_overall_F_INFECTIONPARMS.dta
 │   │   └──R_SCRIPT_OSORIO_Z_FINAL.R
 │   │   └──volcano_plot_FINALIZED.pdf
 │   │   └──Weight_for_plots.xlx
 └
-└   ├──FIGURES1
-       └── FIGURES1fin.gph
+└   ├──FIGURES2
+       └── FIGURES2fin.gph
 └─ STATA_SCRIPT
-    └── UKB_PAPER3_LE8INFECTDEM_FINAL_GITHUB.do
+    └── UKB_PAPER3_LE8INFECTDEM_FINALIZED_GITHUB.do
 └─OUTPUT
 └─OUTPUT2
