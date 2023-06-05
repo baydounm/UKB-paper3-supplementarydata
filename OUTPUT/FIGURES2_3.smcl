@@ -1,0 +1,744 @@
+{smcl}
+{com}{sf}{ul off}{txt}
+{com}. 
+. 
+. use "D:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. 
+. ****************************************KAPLAN-MEIER SURVIVAL CURVES********************************************************************
+. 
+. 
+. 
+. set scheme sj
+{txt}
+{com}. 
+. stset Age_dementia, failure(dem_diag==1) enter(baselineage) id(n_eid) scale(1) 
+
+{txt}Survival-time data settings
+
+{col 12}ID variable: {res}n_eid
+{col 10}{txt}Failure event: {res}dem_diag==1
+{col 1}{txt}Observed time interval: {res}(Age_dementia[_n-1], Age_dementia]
+{col 6}{txt}Enter on or after: {res}time baselineage
+{col 6}{txt}Exit on or before: {res}failure
+
+{txt}{hline 74}
+{res}    502,389{txt}  total observations
+{res}          3{txt}  event time missing (Age_dementia>=.){col 61}PROBABLE ERROR
+{res}        228{txt}  observations end on or before {bf:enter()}
+{hline 74}
+{res}    502,158{txt}  observations remaining, representing
+{res}    502,158{txt}  subjects
+{res}      7,668{txt}  failures in single-failure-per-subject data
+{res}  6,208,727{txt}  total analysis time at risk and under observation
+                                                At risk from t = {res}        0
+                                     {txt}Earliest observed entry t = {res} 37.41821
+                                          {txt}Last observed exit t = {res} 87.63313
+{txt}
+{com}. 
+. 
+. sts graph if sample_final==1 & _t<84, gwood legend(on) xlabel(65(5)90) ylabel(0.50(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion Dementia-Free (95%CI)") title("Three-level infection burden vs. dementia,total sample") by (infectionburden_THREE) tmin(65) tmax(90) 
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE1.gph", replace
+{res}{txt}file {bf:FIGURE1.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}      4007        4109.50
+           {txt}1 {c |}{res}       646        1356.77
+           {txt}2 {c |}{res}      1681         867.73
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}      6334        6334.00
+
+                      {txt}chi2(2) = {res}1138.35
+                      {txt}Pr>chi2 =  {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-73288.516
+{txt}Iteration 1:  Log likelihood = {res}-72808.399
+{txt}Iteration 2:  Log likelihood = {res}-72756.949
+{txt}Iteration 3:  Log likelihood = {res}-72756.907
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-72756.907
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:354,818}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:354,818}
+{txt}No. of failures = {res}{ralign 11:6,334}
+{txt}Time at risk    = {res}{ralign 11:4,353,146.2}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:1063.22}
+{txt}Log likelihood = {res}-72756.907{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .4880366{col 35}{space 2} .0206935{col 46}{space 1}  -16.92{col 55}{space 3}0.000{col 63}{space 4} .4491177{col 76}{space 3}  .530328
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.988816{col 35}{space 2} .0578254{col 46}{space 1}   23.65{col 55}{space 3}0.000{col 63}{space 4} 1.878649{col 76}{space 3} 2.105443
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. sts graph if sample_final==1 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.50(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion Dementia-Free (95%CI)") title("Three-level infection burden vs. dementia,total sample") by (infectionburden_THREE) tmin(65) tmax(90) 
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE1A.gph", replace
+{res}{txt}file {bf:FIGURE1A.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}      4007        4109.50
+           {txt}1 {c |}{res}       646        1356.77
+           {txt}2 {c |}{res}      1681         867.73
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}      6334        6334.00
+
+                      {txt}chi2(2) = {res}1138.35
+                      {txt}Pr>chi2 =  {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-73288.516
+{txt}Iteration 1:  Log likelihood = {res}-72808.399
+{txt}Iteration 2:  Log likelihood = {res}-72756.949
+{txt}Iteration 3:  Log likelihood = {res}-72756.907
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-72756.907
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:354,818}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:354,818}
+{txt}No. of failures = {res}{ralign 11:6,334}
+{txt}Time at risk    = {res}{ralign 11:4,353,146.2}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:1063.22}
+{txt}Log likelihood = {res}-72756.907{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .4880366{col 35}{space 2} .0206935{col 46}{space 1}  -16.92{col 55}{space 3}0.000{col 63}{space 4} .4491177{col 76}{space 3}  .530328
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.988816{col 35}{space 2} .0578254{col 46}{space 1}   23.65{col 55}{space 3}0.000{col 63}{space 4} 1.878649{col 76}{space 3} 2.105443
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. sts graph if sample_final==1 & LE8_TOTALSCOREtert==1 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.50(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion Dementia-Free (95%CI)") title("Three-level infection burden vs. dementia,Lowest LE8 tertile") by (infectionburden_THREE) tmin(65) tmax(90) 
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE1B.gph", replace
+{res}{txt}file {bf:FIGURE1B.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}      1492        1571.16
+           {txt}1 {c |}{res}       222         498.53
+           {txt}2 {c |}{res}       752         396.31
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}      2466        2466.00
+
+                       {txt}chi2(2) = {res}476.98
+                       {txt}Pr>chi2 = {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-25889.673
+{txt}Iteration 1:  Log likelihood = {res}-25683.985
+{txt}Iteration 2:  Log likelihood = {res}-25664.535
+{txt}Iteration 3:  Log likelihood = {res} -25664.53
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res} -25664.53
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:118,755}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:118,755}
+{txt}No. of failures = {res}{ralign 11:2,466}
+{txt}Time at risk    = {res}{ralign 11:1,437,323.4}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:450.29}
+{txt}Log likelihood = {res}-25664.53{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .4686865{col 35}{space 2} .0337188{col 46}{space 1}  -10.53{col 55}{space 3}0.000{col 63}{space 4} .4070467{col 76}{space 3} .5396604
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.999395{col 35}{space 2} .0894437{col 46}{space 1}   15.49{col 55}{space 3}0.000{col 63}{space 4} 1.831554{col 76}{space 3} 2.182617
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. 
+. 
+. sts graph if sample_final==1 & LE8_TOTALSCOREtert==2 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.50(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion Dementia-Free (95%CI)") title("Three-level infection burden vs. dementia, Middle LE8 tertile") by (infectionburden_THREE) tmin(65) tmax(90)
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE1C.gph",replace
+{res}{txt}file {bf:FIGURE1C.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==2 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}      1366        1378.85
+           {txt}1 {c |}{res}       219         456.93
+           {txt}2 {c |}{res}       530         279.23
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}      2115        2115.00
+
+                       {txt}chi2(2) = {res}349.72
+                       {txt}Pr>chi2 = {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==2 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-22225.872
+{txt}Iteration 1:  Log likelihood = {res}-22074.777
+{txt}Iteration 2:  Log likelihood = {res}-22059.836
+{txt}Iteration 3:  Log likelihood = {res}-22059.824
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-22059.824
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:119,512}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:119,512}
+{txt}No. of failures = {res}{ralign 11:2,115}
+{txt}Time at risk    = {res}{ralign 11:1,469,734.6}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:332.10}
+{txt}Log likelihood = {res}-22059.824{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .4834936{col 35}{space 2} .0351963{col 46}{space 1}   -9.98{col 55}{space 3}0.000{col 63}{space 4} .4192054{col 76}{space 3}  .557641
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.918605{col 35}{space 2} .0982612{col 46}{space 1}   12.72{col 55}{space 3}0.000{col 63}{space 4} 1.735367{col 76}{space 3} 2.121191
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. 
+. sts graph if sample_final==1 & LE8_TOTALSCOREtert==3 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.50(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion Dementia-Free (95%CI)") title("Three-level infection burden vs. dementia, Uppermost LE8 tertile") by (infectionburden_THREE) tmin(65) tmax(90)
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE1D.gph",replace
+{res}{txt}file {bf:FIGURE1D.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==3 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}      1149        1151.87
+           {txt}1 {c |}{res}       205         393.31
+           {txt}2 {c |}{res}       399         207.82
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}      1753        1753.00
+
+                       {txt}chi2(2) = {res}266.35
+                       {txt}Pr>chi2 = {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==3 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-18217.105
+{txt}Iteration 1:  Log likelihood = {res}-18105.036
+{txt}Iteration 2:  Log likelihood = {res}-18093.149
+{txt}Iteration 3:  Log likelihood = {res}-18093.129
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-18093.129
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:116,551}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:116,551}
+{txt}No. of failures = {res}{ralign 11:1,753}
+{txt}Time at risk    = {res}{ralign 11:1,446,088.2}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:247.95}
+{txt}Log likelihood = {res}-18093.129{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .5222702{col 35}{space 2} .0396012{col 46}{space 1}   -8.57{col 55}{space 3}0.000{col 63}{space 4} .4501453{col 76}{space 3} .6059514
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.926952{col 35}{space 2} .1120491{col 46}{space 1}   11.28{col 55}{space 3}0.000{col 63}{space 4} 1.719392{col 76}{space 3} 2.159568
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. ***************INTERACTION BY LE8 TERTILE**************************
+. 
+. stcox i.infectionburden_THREE##LE8_TOTALSCOREtert if sample_final==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-73288.516
+{txt}Iteration 1:  Log likelihood = {res}-72789.786
+{txt}Iteration 2:  Log likelihood = {res}-72716.462
+{txt}Iteration 3:  Log likelihood = {res}-72715.893
+{txt}Iteration 4:  Log likelihood = {res}-72715.893
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-72715.893
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:354,818}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:354,818}
+{txt}No. of failures = {res}{ralign 11:6,334}
+{txt}Time at risk    = {res}{ralign 11:4,353,146.2}
+{col 56}{txt}{lalign 13:LR chi2({res:8})} = {res}{ralign 7:1145.25}
+{txt}Log likelihood = {res}-72715.893{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 41}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                                      _t{col 42}{c |} Haz. ratio{col 54}   Std. err.{col 66}      z{col 74}   P>|z|{col 82}     [95% con{col 95}f. interval]
+{hline 41}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 19}infectionburden_THREE {c |}
+{space 38}1  {c |}{col 42}{res}{space 2} .4698642{col 54}{space 2} .0338014{col 65}{space 1}  -10.50{col 74}{space 3}0.000{col 82}{space 4} .4080732{col 95}{space 3} .5410117
+{txt}{space 38}2  {c |}{col 42}{res}{space 2} 1.995095{col 54}{space 2} .0892337{col 65}{space 1}   15.44{col 74}{space 3}0.000{col 82}{space 4} 1.827647{col 95}{space 3} 2.177884
+{txt}{space 40} {c |}
+{space 22}LE8_TOTALSCOREtert {c |}
+{space 38}2  {c |}{col 42}{res}{space 2} .8311277{col 54}{space 2}  .031126{col 65}{space 1}   -4.94{col 74}{space 3}0.000{col 82}{space 4}  .772307{col 95}{space 3} .8944282
+{txt}{space 38}3  {c |}{col 42}{res}{space 2} .7647062{col 54}{space 2} .0300163{col 65}{space 1}   -6.83{col 74}{space 3}0.000{col 82}{space 4} .7080814{col 95}{space 3} .8258592
+{txt}{space 40} {c |}
+infectionburden_THREE#LE8_TOTALSCOREtert {c |}
+{space 36}1 2  {c |}{col 42}{res}{space 2} 1.029427{col 54}{space 2} .1053495{col 65}{space 1}    0.28{col 74}{space 3}0.777{col 82}{space 4} .8423362{col 95}{space 3} 1.258073
+{txt}{space 36}1 3  {c |}{col 42}{res}{space 2} 1.108279{col 54}{space 2} .1158306{col 65}{space 1}    0.98{col 74}{space 3}0.325{col 82}{space 4} .9029977{col 95}{space 3} 1.360227
+{txt}{space 36}2 2  {c |}{col 42}{res}{space 2} .9604837{col 54}{space 2} .0652799{col 65}{space 1}   -0.59{col 74}{space 3}0.553{col 82}{space 4} .8406932{col 95}{space 3} 1.097343
+{txt}{space 36}2 3  {c |}{col 42}{res}{space 2} .9732975{col 54}{space 2} .0713705{col 65}{space 1}   -0.37{col 74}{space 3}0.712{col 82}{space 4} .8430013{col 95}{space 3} 1.123733
+{txt}{hline 41}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+D:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. 
+. 
+. stset Age_AD, failure(ad_diag==1) enter(baselineage) id(n_eid) scale(1)
+
+{txt}Survival-time data settings
+
+{col 12}ID variable: {res}n_eid
+{col 10}{txt}Failure event: {res}ad_diag==1
+{col 1}{txt}Observed time interval: {res}(Age_AD[_n-1], Age_AD]
+{col 6}{txt}Enter on or after: {res}time baselineage
+{col 6}{txt}Exit on or before: {res}failure
+
+{txt}{hline 74}
+{res}    502,389{txt}  total observations
+{res}          3{txt}  event time missing (Age_AD>=.){col 61}PROBABLE ERROR
+{res}         18{txt}  observations end on or before {bf:enter()}
+{hline 74}
+{res}    502,368{txt}  observations remaining, representing
+{res}    502,368{txt}  subjects
+{res}      3,272{txt}  failures in single-failure-per-subject data
+{res}  6,221,064{txt}  total analysis time at risk and under observation
+                                                At risk from t = {res}        0
+                                     {txt}Earliest observed entry t = {res} 37.41821
+                                          {txt}Last observed exit t = {res} 87.63313
+{txt}
+{com}. 
+. sts graph if sample_final==1 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.70(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion AD-Free (95%CI)") title("Three-level infection burden vs. AD,total sample") by (infectionburden_THREE) tmin(65) tmax(90) 
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE2A.gph", replace
+{res}{txt}file {bf:FIGURE2A.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}      1727        1728.03
+           {txt}1 {c |}{res}       292         566.32
+           {txt}2 {c |}{res}       645         369.65
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}      2664        2664.00
+
+                       {txt}chi2(2) = {res}338.32
+                       {txt}Pr>chi2 = {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & _t<84 
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-30686.525
+{txt}Iteration 1:  Log likelihood = {res}-30532.325
+{txt}Iteration 2:  Log likelihood = {res}-30521.748
+{txt}Iteration 3:  Log likelihood = {res}-30521.743
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-30521.743
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:354,813}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:354,813}
+{txt}No. of failures = {res}{ralign 11:2,664}
+{txt}Time at risk    = {res}{ralign 11:4,361,437.4}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:329.56}
+{txt}Log likelihood = {res}-30521.743{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .5156731{col 35}{space 2} .0326327{col 46}{space 1}  -10.47{col 55}{space 3}0.000{col 63}{space 4} .4555216{col 76}{space 3} .5837675
+{txt}{space 19}2  {c |}{col 23}{res}{space 2}  1.74726{col 35}{space 2} .0806654{col 46}{space 1}   12.09{col 55}{space 3}0.000{col 63}{space 4} 1.596101{col 76}{space 3} 1.912735
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. 
+. sts graph if sample_final==1 & LE8_TOTALSCOREtert==1 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.70(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion AD-Free (95%CI)") title("Three-level infection burden vs. AD,Lowest LE8 tertile") by (infectionburden_THREE) tmin(65) tmax(90) 
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE2B.gph", replace
+{res}{txt}file {bf:FIGURE2B.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}       578         591.17
+           {txt}1 {c |}{res}        96         185.71
+           {txt}2 {c |}{res}       254         151.12
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}       928         928.00
+
+                       {txt}chi2(2) = {res}113.76
+                       {txt}Pr>chi2 = {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-9680.0957
+{txt}Iteration 1:  Log likelihood = {res}-9627.5547
+{txt}Iteration 2:  Log likelihood = {res}-9624.5255
+{txt}Iteration 3:  Log likelihood = {res}-9624.5247
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-9624.5247
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:118,754}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:118,754}
+{txt}No. of failures = {res}{ralign 11:928}
+{txt}Time at risk    = {res}{ralign 11:1,440,855.8}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:111.14}
+{txt}Log likelihood = {res}-9624.5247{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .5284819{col 35}{space 2} .0582529{col 46}{space 1}   -5.79{col 55}{space 3}0.000{col 63}{space 4} .4257992{col 76}{space 3} .6559267
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.719903{col 35}{space 2} .1295087{col 46}{space 1}    7.20{col 55}{space 3}0.000{col 63}{space 4} 1.483913{col 76}{space 3} 1.993422
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. sts graph if sample_final==1 & LE8_TOTALSCOREtert==2 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.70(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion AD-Free (95%CI)") title("Three-level infection burden vs. AD, Middle LE8 tertile") by (infectionburden_THREE) tmin(65) tmax(90)
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE2C.gph",replace
+{res}{txt}file {bf:FIGURE2C.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==2 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}       600         591.75
+           {txt}1 {c |}{res}        99         194.90
+           {txt}2 {c |}{res}       209         121.35
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}       908         908.00
+
+                       {txt}chi2(2) = {res}110.76
+                       {txt}Pr>chi2 = {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==2 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-9519.5729
+{txt}Iteration 1:  Log likelihood = {res}-9468.0094
+{txt}Iteration 2:  Log likelihood = {res}-9464.6276
+{txt}Iteration 3:  Log likelihood = {res}-9464.6257
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-9464.6257
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:119,509}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:119,509}
+{txt}No. of failures = {res}{ralign 11:908}
+{txt}Time at risk    = {res}{ralign 11:1,472,380.1}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:109.89}
+{txt}Log likelihood = {res}-9464.6257{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .5006919{col 35}{space 2} .0543201{col 46}{space 1}   -6.38{col 55}{space 3}0.000{col 63}{space 4} .4047842{col 76}{space 3} .6193234
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.700426{col 35}{space 2} .1366652{col 46}{space 1}    6.61{col 55}{space 3}0.000{col 63}{space 4} 1.452599{col 76}{space 3} 1.990535
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. 
+. sts graph if sample_final==1 & LE8_TOTALSCOREtert==3 & _t<84, risktable gwood legend(on) xlabel(65(5)90) ylabel(0.70(.10)1) xtitle("Age at diagnosis") ytitle("KM Estimated Proportion AD-Free (95%CI)") title("Three-level infection burden vs. AD, Uppermost LE8 tertile") by (infectionburden_THREE) tmin(65) tmax(90)
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+{txt}
+{com}. graph save "FIGURE2D.gph",replace
+{res}{txt}file {bf:FIGURE2D.gph} saved
+
+{com}. sts test infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==3 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Equality of survivor functions
+Log-rank test
+
+{col 13} {c |}  Observed       Expected
+infectionb~E {c |}    events         events
+{hline 13}{c +}{hline 25}
+           0 {c |}{res}       549         544.12
+           {txt}1 {c |}{res}        97         184.83
+           {txt}2 {c |}{res}       182          99.05
+{txt}{hline 13}{c +}{hline 25}
+       Total {c |}{res}       828         828.00
+
+                       {txt}chi2(2) = {res}111.37
+                       {txt}Pr>chi2 = {res}0.0000
+{txt}
+{com}. stcox i.infectionburden_THREE if sample_final==1 & LE8_TOTALSCOREtert==3 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-8560.4488
+{txt}Iteration 1:  Log likelihood = {res}-8511.5206
+{txt}Iteration 2:  Log likelihood = {res}-8507.3019
+{txt}Iteration 3:  Log likelihood = {res}-8507.2971
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res}-8507.2971
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:116,550}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:116,550}
+{txt}No. of failures = {res}{ralign 11:828}
+{txt}Time at risk    = {res}{ralign 11:1,448,201.4}
+{col 56}{txt}{lalign 13:LR chi2({res:2})} = {res}{ralign 7:106.30}
+{txt}Log likelihood = {res}-8507.2971{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .5199108{col 35}{space 2} .0572686{col 46}{space 1}   -5.94{col 55}{space 3}0.000{col 63}{space 4} .4189559{col 76}{space 3} .6451926
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.823051{col 35}{space 2} .1560341{col 46}{space 1}    7.02{col 55}{space 3}0.000{col 63}{space 4} 1.541505{col 76}{space 3}  2.15602
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. ***************INTERACTION BY LE8 TERTILE**************************
+. 
+. stcox i.infectionburden_THREE##LE8_TOTALSCOREtert if sample_final==1 & _t<84
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Iteration 0:  Log likelihood = {res}-30686.525
+{txt}Iteration 1:  Log likelihood = {res}-30531.349
+{txt}Iteration 2:  Log likelihood = {res}-30520.349
+{txt}Iteration 3:  Log likelihood = {res} -30520.34
+{txt}Iteration 4:  Log likelihood = {res} -30520.34
+{txt}Refining estimates:
+Iteration 0:  Log likelihood = {res} -30520.34
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:354,813}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:354,813}
+{txt}No. of failures = {res}{ralign 11:2,664}
+{txt}Time at risk    = {res}{ralign 11:4,361,437.4}
+{col 56}{txt}{lalign 13:LR chi2({res:8})} = {res}{ralign 7:332.37}
+{txt}Log likelihood = {res}-30520.34{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 41}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                                      _t{col 42}{c |} Haz. ratio{col 54}   Std. err.{col 66}      z{col 74}   P>|z|{col 82}     [95% con{col 95}f. interval]
+{hline 41}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 19}infectionburden_THREE {c |}
+{space 38}1  {c |}{col 42}{res}{space 2} .5291087{col 54}{space 2} .0583171{col 65}{space 1}   -5.78{col 74}{space 3}0.000{col 82}{space 4}  .426312{col 95}{space 3} .6566928
+{txt}{space 38}2  {c |}{col 42}{res}{space 2} 1.718837{col 54}{space 2} .1294059{col 65}{space 1}    7.19{col 74}{space 3}0.000{col 82}{space 4} 1.483032{col 95}{space 3} 1.992136
+{txt}{space 40} {c |}
+{space 22}LE8_TOTALSCOREtert {c |}
+{space 38}2  {c |}{col 42}{res}{space 2} .9409309{col 54}{space 2} .0548428{col 65}{space 1}   -1.04{col 74}{space 3}0.296{col 82}{space 4} .8393533{col 95}{space 3} 1.054801
+{txt}{space 38}3  {c |}{col 42}{res}{space 2} .9462939{col 54}{space 2}  .056397{col 65}{space 1}   -0.93{col 74}{space 3}0.354{col 82}{space 4} .8419695{col 95}{space 3} 1.063545
+{txt}{space 40} {c |}
+infectionburden_THREE#LE8_TOTALSCOREtert {c |}
+{space 36}1 2  {c |}{col 42}{res}{space 2} .9473571{col 54}{space 2} .1465024{col 65}{space 1}   -0.35{col 74}{space 3}0.727{col 82}{space 4} .6996504{col 95}{space 3} 1.282763
+{txt}{space 36}1 3  {c |}{col 42}{res}{space 2} .9811107{col 54}{space 2} .1528698{col 65}{space 1}   -0.12{col 74}{space 3}0.903{col 82}{space 4} .7229192{col 95}{space 3} 1.331516
+{txt}{space 36}2 2  {c |}{col 42}{res}{space 2} .9869365{col 54}{space 2} .1086502{col 65}{space 1}   -0.12{col 74}{space 3}0.905{col 82}{space 4} .7953932{col 95}{space 3} 1.224606
+{txt}{space 36}2 3  {c |}{col 42}{res}{space 2}  1.06406{col 54}{space 2} .1212467{col 65}{space 1}    0.54{col 74}{space 3}0.586{col 82}{space 4} .8510876{col 95}{space 3} 1.330327
+{txt}{hline 41}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. capture log close
+{smcl}
+{com}{sf}{ul off}

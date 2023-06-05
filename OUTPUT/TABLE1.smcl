@@ -1,0 +1,1515 @@
+{smcl}
+{com}{sf}{ul off}{txt}
+{com}. 
+. use "D:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. 
+. **Main exposures of interest: LE8* infectionburden viralinfectionburden bacterialinfectionburden
+. **Main outcomes of interest: Dementia and AD
+. **Main covariates: AGE SEX RACE_ETHN (or Non_White) educationbr townsend householdincome householdsize
+. **Main effect modifiers: sex and race
+. 
+. 
+. 
+. 
+. 
+. *****************AGE and SEX**********************************
+. 
+. capture drop AGE
+{txt}
+{com}. gen AGE=baselineage
+{txt}(3 missing values generated)
+
+{com}. 
+. capture drop SEX
+{txt}
+{com}. gen SEX=.
+{txt}(502,389 missing values generated)
+
+{com}. replace SEX=1 if sex==1
+{txt}(229,077 real changes made)
+
+{com}. replace SEX=2 if sex==2
+{txt}(273,312 real changes made)
+
+{com}. 
+. save,replace
+{txt}{p 0 4 2}
+file {bf}
+D:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. **********TABLE 1: OVERALL, BY SEX AND BY RACE ***************
+. 
+. capture drop infectionburdenbr
+{txt}
+{com}. gen infectionburdenbr=1 if infectionburden>=1
+{txt}(328,882 missing values generated)
+
+{com}. replace infectionburdenbr=0 if infectionburden==0
+{txt}(328,882 real changes made)
+
+{com}. 
+. 
+. capture drop infectionburdenhospbr
+{txt}
+{com}. gen infectionburdenhospbr=1 if infectionburdenhosp>=1
+{txt}(441,555 missing values generated)
+
+{com}. replace infectionburdenhospbr=0 if infectionburdenhosp==0
+{txt}(441,555 real changes made)
+
+{com}. 
+. 
+. capture drop infectionburdennonhospbr
+{txt}
+{com}. gen infectionburdennonhospbr=1 if infectionburdennonhosp>=1
+{txt}(389,716 missing values generated)
+
+{com}. replace infectionburdennonhospbr=0 if infectionburdennonhosp==0
+{txt}(389,716 real changes made)
+
+{com}. 
+. 
+. capture drop infectionburden_THREE
+{txt}
+{com}. gen infectionburden_THREE=.
+{txt}(502,389 missing values generated)
+
+{com}. replace infectionburden_THREE=0 if infectionburdenbr==0
+{txt}(328,882 real changes made)
+
+{com}. replace infectionburden_THREE=1 if infectionburdenbr==1 & infectionburdenhospbr==0
+{txt}(112,673 real changes made)
+
+{com}. replace infectionburden_THREE=2 if infectionburdenbr==1 & infectionburdenhospbr==1
+{txt}(60,834 real changes made)
+
+{com}. 
+. 
+. ****OVERALL**
+. 
+. foreach x1 of varlist AGE householdsize townsend LE8* SES  infectionburden infectionburdenhosp infectionburden_THREE {c -(}
+{txt}  2{com}.          mean `x1' if sample_final==1
+{txt}  3{com}. {c )-}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 9}AGE {c |}{col 14}{res}{space 2} 60.41474{col 26}{space 2} .0091322{col 37}{space 5} 60.39684{col 51}{space 3} 60.43264
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:355,046}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+householdsize {c |}{col 15}{res}{space 2}  2.23048{col 27}{space 2} .0019687{col 38}{space 5} 2.226621{col 52}{space 3} 2.234339
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:354,740}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}townsend {c |}{col 14}{res}{space 2}-1.516773{col 26}{space 2} .0049895{col 37}{space 5}-1.526552{col 51}{space 3}-1.506993
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:354,960}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP1DIET {c |}{col 15}{res}{space 2} 34.04077{col 27}{space 2} .0520843{col 38}{space 5} 33.93868{col 52}{space 3} 34.14285
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}LE8_COMP2PA {c |}{col 14}{res}{space 2} 47.85825{col 26}{space 2}  .058926{col 37}{space 5} 47.74276{col 51}{space 3} 47.97374
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:355,046}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}       Mean{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP3NICOTINE {c |}{col 19}{res}{space 2} 84.68202{col 31}{space 2} .0492023{col 42}{space 5} 84.58559{col 56}{space 3} 84.77846
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:353,366}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP4SLEEP {c |}{col 16}{res}{space 2} 89.03582{col 28}{space 2} .0316756{col 39}{space 5} 88.97373{col 53}{space 3}  89.0979
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:353,766}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP5BMI {c |}{col 14}{res}{space 2} 68.34819{col 26}{space 2} .0478622{col 37}{space 5} 68.25438{col 51}{space 3}   68.442
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:307,261}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}       Mean{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP6LIPIDS {c |}{col 17}{res}{space 2} 48.10913{col 29}{space 2}  .054448{col 40}{space 5} 48.00242{col 54}{space 3} 48.21585
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:333,452}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP7GLUC {c |}{col 15}{res}{space 2} 89.51498{col 27}{space 2} .0363582{col 38}{space 5} 89.44372{col 52}{space 3} 89.58624
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:333,181}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}LE8_COMP8BP {c |}{col 14}{res}{space 2} 38.08889{col 26}{space 2} .0532814{col 37}{space 5} 37.98446{col 51}{space 3} 38.19332
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:355,046}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_TOTALSCORE {c |}{col 16}{res}{space 2}  501.482{col 28}{space 2} .1612523{col 39}{space 5}  501.166{col 53}{space 3} 501.7981
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:355,046}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_LIFESTYLE {c |}{col 15}{res}{space 2}  255.424{col 27}{space 2}  .106511{col 38}{space 5} 255.2152{col 52}{space 3} 255.6327
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:355,046}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_BIOLOGICAL {c |}{col 16}{res}{space 2}  245.822{col 28}{space 2} .1116625{col 39}{space 5} 245.6032{col 53}{space 3} 246.0409
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 46}{lalign 13:Number of obs}{col 59} = {res}{ralign 7:355,046}
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 20}{c |}       Mean{col 32}   Std. err.{col 44}     [95% con{col 57}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_TOTALSCOREtert {c |}{col 20}{res}{space 2} 1.993812{col 32}{space 2} .0013666{col 43}{space 5} 1.991133{col 57}{space 3} 1.996491
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:355,046}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}       Mean{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_LIFESTYLEtert {c |}{col 19}{res}{space 2} 1.988455{col 31}{space 2} .0013743{col 42}{space 5} 1.985761{col 56}{space 3} 1.991149
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 46}{lalign 13:Number of obs}{col 59} = {res}{ralign 7:355,046}
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 20}{c |}       Mean{col 32}   Std. err.{col 44}     [95% con{col 57}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_BIOLOGICALtert {c |}{col 20}{res}{space 2} 1.990931{col 32}{space 2} .0013681{col 43}{space 5} 1.988249{col 57}{space 3} 1.993612
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 9}SES {c |}{col 14}{res}{space 2}-.0455256{col 26}{space 2} .0011617{col 37}{space 5}-.0478024{col 51}{space 3}-.0432487
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:355,046}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}       Mean{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden {c |}{col 17}{res}{space 2} .7462019{col 29}{space 2} .0023103{col 40}{space 5} .7416739{col 54}{space 3}   .75073
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 47}{lalign 13:Number of obs}{col 60} = {res}{ralign 7:355,046}
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 21}{c |}       Mean{col 33}   Std. err.{col 45}     [95% con{col 58}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenhosp {c |}{col 21}{res}{space 2} .2597016{col 33}{space 2} .0014795{col 44}{space 5} .2568018{col 58}{space 3} .2626013
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:355,046}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}       Mean{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden_THREE {c |}{col 23}{res}{space 2} .4770565{col 35}{space 2} .0011906{col 46}{space 5} .4747229{col 60}{space 3} .4793901
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. 
+. 
+. 
+. foreach x2 of varlist dem_diag ad_diag SEX RACE_ETHN NonWhite educationbr householdincome infectionburdenbr infectionburdenhospbr infectionburden_THREE {c -(}
+{txt}  2{com}.          prop `x2' if sample_final==1
+{txt}  3{com}. {c )-}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}dem_diag {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9821572{col 26}{space 2} .0002222{col 37}{space 5} .9817165{col 51}{space 3} .9825875
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .0178428{col 26}{space 2} .0002222{col 37}{space 5} .0174125{col 51}{space 3} .0182835
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 5}ad_diag {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9924939{col 26}{space 2} .0001449{col 37}{space 5} .9922046{col 51}{space 3} .9927726
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .0075061{col 26}{space 2} .0001449{col 37}{space 5} .0072274{col 51}{space 3} .0077954
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 9}SEX {c |}
+{space 10}1  {c |}{col 14}{res}{space 2} .4645088{col 26}{space 2}  .000837{col 37}{space 5} .4628687{col 51}{space 3} .4661497
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .5354912{col 26}{space 2}  .000837{col 37}{space 5} .5338503{col 51}{space 3} .5371313
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 3}RACE_ETHN {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9582251{col 26}{space 2} .0003358{col 37}{space 5}  .957562{col 51}{space 3} .9588783
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .0106831{col 26}{space 2} .0001725{col 37}{space 5} .0103502{col 51}{space 3} .0110266
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .0147727{col 26}{space 2} .0002025{col 37}{space 5} .0143811{col 51}{space 3} .0151749
+{txt}{space 10}3  {c |}{col 14}{res}{space 2}  .016319{col 26}{space 2} .0002126{col 37}{space 5} .0159074{col 51}{space 3}  .016741
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:355,046}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}NonWhite {c |}
+{space 6}white  {c |}{col 14}{res}{space 2} .9582251{col 26}{space 2} .0003358{col 37}{space 5}  .957562{col 51}{space 3} .9588783
+{txt}{space 2}Non-White  {c |}{col 14}{res}{space 2} .0417749{col 26}{space 2} .0003358{col 37}{space 5} .0411217{col 51}{space 3}  .042438
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:295,455}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}educationbr {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .2176135{col 26}{space 2} .0007591{col 37}{space 5} .2161293{col 51}{space 3}  .219105
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .3946862{col 26}{space 2} .0008992{col 37}{space 5} .3929251{col 51}{space 3}   .39645
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .3877003{col 26}{space 2} .0008964{col 37}{space 5} .3859449{col 51}{space 3} .3894586
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:318,904}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}{col 40}             L{col 54}ogit
+{col 17}{c |} Proportion{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+householdincome {c |}
+{space 13}1  {c |}{col 17}{res}{space 2} .2589651{col 29}{space 2} .0007757{col 40}{space 5} .2574476{col 54}{space 3} .2604884
+{txt}{space 13}2  {c |}{col 17}{res}{space 2} .2780116{col 29}{space 2} .0007934{col 40}{space 5} .2764593{col 54}{space 3} .2795692
+{txt}{space 13}3  {c |}{col 17}{res}{space 2} .2461336{col 29}{space 2} .0007628{col 40}{space 5} .2446417{col 54}{space 3} .2476317
+{txt}{space 13}4  {c |}{col 17}{res}{space 2} .1726977{col 29}{space 2} .0006693{col 40}{space 5} .1713898{col 54}{space 3} .1740136
+{txt}{space 13}5  {c |}{col 17}{res}{space 2}  .044192{col 29}{space 2} .0003639{col 40}{space 5} .0434841{col 54}{space 3} .0449108
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:355,046}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}{col 42}             L{col 56}ogit
+{col 19}{c |} Proportion{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenbr {c |}
+{space 15}0  {c |}{col 19}{res}{space 2} .6498623{col 31}{space 2} .0008005{col 42}{space 5} .6482916{col 56}{space 3} .6514297
+{txt}{space 15}1  {c |}{col 19}{res}{space 2} .3501377{col 31}{space 2} .0008005{col 42}{space 5} .3485703{col 56}{space 3} .3517084
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:355,046}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}{col 46}             L{col 60}ogit
+{col 23}{c |} Proportion{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenhospbr {c |}
+{space 19}0  {c |}{col 23}{res}{space 2} .8730812{col 35}{space 2} .0005587{col 46}{space 5} .8719822{col 60}{space 3} .8741722
+{txt}{space 19}1  {c |}{col 23}{res}{space 2} .1269188{col 35}{space 2} .0005587{col 46}{space 5} .1258278{col 60}{space 3} .1280178
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:355,046}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}{col 46}             L{col 60}ogit
+{col 23}{c |} Proportion{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden_THREE {c |}
+{space 19}0  {c |}{col 23}{res}{space 2} .6498623{col 35}{space 2} .0008005{col 46}{space 5} .6482916{col 60}{space 3} .6514297
+{txt}{space 19}1  {c |}{col 23}{res}{space 2}  .223219{col 35}{space 2} .0006988{col 46}{space 5} .2218523{col 60}{space 3} .2245916
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} .1269188{col 35}{space 2} .0005587{col 46}{space 5} .1258278{col 60}{space 3} .1280178
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. 
+. 
+. **Among Men**
+. 
+. foreach x1 of varlist AGE householdsize townsend LE8* SES infectionburden infectionburdenhosp infectionburden_THREE {c -(}
+{txt}  2{com}.          mean `x1' if sample_final==1 & SEX==1
+{txt}  3{com}. {c )-}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 9}AGE {c |}{col 14}{res}{space 2} 60.72757{col 26}{space 2} .0134424{col 37}{space 5} 60.70122{col 51}{space 3} 60.75391
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:164,922}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+householdsize {c |}{col 15}{res}{space 2} 2.306448{col 27}{space 2} .0029429{col 38}{space 5}  2.30068{col 52}{space 3} 2.312216
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,770}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}townsend {c |}{col 14}{res}{space 2} -1.49749{col 26}{space 2} .0074447{col 37}{space 5}-1.512081{col 51}{space 3}-1.482898
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:164,870}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP1DIET {c |}{col 15}{res}{space 2} 28.52714{col 27}{space 2} .0748364{col 38}{space 5} 28.38046{col 52}{space 3} 28.67382
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}LE8_COMP2PA {c |}{col 14}{res}{space 2} 49.20575{col 26}{space 2} .0866112{col 37}{space 5} 49.03599{col 51}{space 3}  49.3755
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:164,922}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}       Mean{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP3NICOTINE {c |}{col 19}{res}{space 2}  82.1738{col 31}{space 2} .0768667{col 42}{space 5} 82.02314{col 56}{space 3} 82.32446
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:164,369}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP4SLEEP {c |}{col 16}{res}{space 2} 89.36174{col 28}{space 2} .0455654{col 39}{space 5} 89.27243{col 53}{space 3} 89.45105
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,243}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP5BMI {c |}{col 14}{res}{space 2} 66.01816{col 26}{space 2} .0662689{col 37}{space 5} 65.88827{col 51}{space 3} 66.14804
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:144,425}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}       Mean{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP6LIPIDS {c |}{col 17}{res}{space 2} 53.20145{col 29}{space 2}  .082869{col 40}{space 5} 53.03903{col 54}{space 3} 53.36388
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:155,580}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP7GLUC {c |}{col 15}{res}{space 2}  88.1621{col 27}{space 2} .0572854{col 38}{space 5} 88.04982{col 52}{space 3} 88.27438
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:154,875}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}LE8_COMP8BP {c |}{col 14}{res}{space 2} 34.78822{col 26}{space 2} .0719834{col 37}{space 5} 34.64713{col 51}{space 3}  34.9293
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:164,922}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_TOTALSCORE {c |}{col 16}{res}{space 2} 492.4891{col 28}{space 2} .2302576{col 39}{space 5} 492.0378{col 53}{space 3} 492.9404
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:164,922}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_LIFESTYLE {c |}{col 15}{res}{space 2} 249.1207{col 27}{space 2} .1577715{col 38}{space 5} 248.8115{col 52}{space 3} 249.4299
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:164,922}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_BIOLOGICAL {c |}{col 16}{res}{space 2} 243.2623{col 28}{space 2} .1539114{col 39}{space 5} 242.9606{col 53}{space 3} 243.5639
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 46}{lalign 13:Number of obs}{col 59} = {res}{ralign 7:164,922}
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 20}{c |}       Mean{col 32}   Std. err.{col 44}     [95% con{col 57}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_TOTALSCOREtert {c |}{col 20}{res}{space 2} 1.921114{col 32}{space 2} .0019761{col 43}{space 5} 1.917241{col 57}{space 3} 1.924987
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:164,922}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}       Mean{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_LIFESTYLEtert {c |}{col 19}{res}{space 2} 1.916506{col 31}{space 2} .0020079{col 42}{space 5} 1.912571{col 56}{space 3} 1.920441
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 46}{lalign 13:Number of obs}{col 59} = {res}{ralign 7:164,922}
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 20}{c |}       Mean{col 32}   Std. err.{col 44}     [95% con{col 57}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_BIOLOGICALtert {c |}{col 20}{res}{space 2} 1.958562{col 32}{space 2} .0019806{col 43}{space 5}  1.95468{col 57}{space 3} 1.962444
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 9}SES {c |}{col 14}{res}{space 2}-.0250735{col 26}{space 2} .0017604{col 37}{space 5}-.0285238{col 51}{space 3}-.0216231
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:164,922}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}       Mean{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden {c |}{col 17}{res}{space 2} .6699591{col 29}{space 2} .0030639{col 40}{space 5} .6639539{col 54}{space 3} .6759644
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 47}{lalign 13:Number of obs}{col 60} = {res}{ralign 7:164,922}
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 21}{c |}       Mean{col 33}   Std. err.{col 45}     [95% con{col 58}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenhosp {c |}{col 21}{res}{space 2} .2512582{col 33}{space 2} .0020527{col 44}{space 5}  .247235{col 58}{space 3} .2552814
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:164,922}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}       Mean{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden_THREE {c |}{col 23}{res}{space 2} .4628673{col 35}{space 2} .0017471{col 46}{space 5} .4594431{col 60}{space 3} .4662915
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. 
+. 
+. 
+. foreach x2 of varlist dem_diag ad_diag SEX RACE_ETHN NonWhite educationbr householdincome infectionburdenbr infectionburdenhospbr infectionburden_THREE {c -(}
+{txt}  2{com}.          prop `x2' if sample_final==1 & SEX==1
+{txt}  3{com}. {c )-}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}dem_diag {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9791598{col 26}{space 2} .0003518{col 37}{space 5} .9784591{col 51}{space 3} .9798382
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .0208402{col 26}{space 2} .0003518{col 37}{space 5} .0201618{col 51}{space 3} .0215409
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 5}ad_diag {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9920023{col 26}{space 2} .0002193{col 37}{space 5} .9915607{col 51}{space 3} .9924209
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .0079977{col 26}{space 2} .0002193{col 37}{space 5} .0075791{col 51}{space 3} .0084393
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 7}1.SEX {c |}{col 14}{res}{space 2}        1{col 26}{space 2}        0{col 37}{space 5}        .{col 51}{space 3}        .
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 3}RACE_ETHN {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9582591{col 26}{space 2} .0004925{col 37}{space 5} .9572831{col 51}{space 3} .9592137
+{txt}{space 10}1  {c |}{col 14}{res}{space 2}  .009459{col 26}{space 2} .0002384{col 37}{space 5} .0090031{col 51}{space 3} .0099378
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .0173476{col 26}{space 2} .0003215{col 37}{space 5} .0167286{col 51}{space 3} .0179891
+{txt}{space 10}3  {c |}{col 14}{res}{space 2} .0149343{col 26}{space 2} .0002987{col 37}{space 5} .0143601{col 51}{space 3} .0155312
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:164,922}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}NonWhite {c |}
+{space 6}white  {c |}{col 14}{res}{space 2} .9582591{col 26}{space 2} .0004925{col 37}{space 5} .9572831{col 51}{space 3} .9592137
+{txt}{space 2}Non-White  {c |}{col 14}{res}{space 2} .0417409{col 26}{space 2} .0004925{col 37}{space 5} .0407863{col 51}{space 3} .0427169
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:135,396}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}educationbr {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .2399923{col 26}{space 2} .0011607{col 37}{space 5} .2377248{col 51}{space 3} .2422746
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .3471151{col 26}{space 2} .0012938{col 37}{space 5} .3445837{col 51}{space 3} .3496552
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .4128926{col 26}{space 2} .0013381{col 37}{space 5} .4102725{col 51}{space 3} .4155176
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:153,496}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}{col 40}             L{col 54}ogit
+{col 17}{c |} Proportion{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+householdincome {c |}
+{space 13}1  {c |}{col 17}{res}{space 2} .2330289{col 29}{space 2} .0010791{col 40}{space 5} .2309206{col 54}{space 3} .2351505
+{txt}{space 13}2  {c |}{col 17}{res}{space 2} .2668213{col 29}{space 2} .0011289{col 40}{space 5} .2646145{col 54}{space 3} .2690398
+{txt}{space 13}3  {c |}{col 17}{res}{space 2} .2553943{col 29}{space 2} .0011131{col 40}{space 5} .2532188{col 54}{space 3}  .257582
+{txt}{space 13}4  {c |}{col 17}{res}{space 2} .1930148{col 29}{space 2} .0010073{col 40}{space 5} .1910481{col 54}{space 3} .1949969
+{txt}{space 13}5  {c |}{col 17}{res}{space 2} .0517408{col 29}{space 2} .0005654{col 40}{space 5} .0506438{col 54}{space 3} .0528602
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:164,922}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}{col 42}             L{col 56}ogit
+{col 19}{c |} Proportion{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenbr {c |}
+{space 15}0  {c |}{col 19}{res}{space 2} .6645081{col 31}{space 2} .0011627{col 42}{space 5} .6622255{col 56}{space 3}  .666783
+{txt}{space 15}1  {c |}{col 19}{res}{space 2} .3354919{col 31}{space 2} .0011627{col 42}{space 5}  .333217{col 56}{space 3} .3377745
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:164,922}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}{col 46}             L{col 60}ogit
+{col 23}{c |} Proportion{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenhospbr {c |}
+{space 19}0  {c |}{col 23}{res}{space 2} .8726246{col 35}{space 2}  .000821{col 46}{space 5} .8710069{col 60}{space 3}  .874225
+{txt}{space 19}1  {c |}{col 23}{res}{space 2} .1273754{col 35}{space 2}  .000821{col 46}{space 5}  .125775{col 60}{space 3} .1289931
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:164,922}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}{col 46}             L{col 60}ogit
+{col 23}{c |} Proportion{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden_THREE {c |}
+{space 19}0  {c |}{col 23}{res}{space 2} .6645081{col 35}{space 2} .0011627{col 46}{space 5} .6622255{col 60}{space 3}  .666783
+{txt}{space 19}1  {c |}{col 23}{res}{space 2} .2081166{col 35}{space 2} .0009996{col 46}{space 5} .2061641{col 60}{space 3} .2100826
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} .1273754{col 35}{space 2}  .000821{col 46}{space 5}  .125775{col 60}{space 3} .1289931
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. 
+. **Among Women**
+. 
+. foreach x1 of varlist AGE householdsize townsend LE8* SES infectionburden infectionburdenhosp infectionburden_THREE {c -(}
+{txt}  2{com}.          mean `x1' if sample_final==1 & SEX==2
+{txt}  3{com}. {c )-}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 9}AGE {c |}{col 14}{res}{space 2} 60.14338{col 26}{space 2}  .012411{col 37}{space 5} 60.11905{col 51}{space 3}  60.1677
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:190,124}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+householdsize {c |}{col 15}{res}{space 2} 2.164582{col 27}{space 2} .0026363{col 38}{space 5} 2.159415{col 52}{space 3} 2.169749
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:189,970}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}townsend {c |}{col 14}{res}{space 2}-1.533497{col 26}{space 2} .0067165{col 37}{space 5}-1.546662{col 51}{space 3}-1.520333
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:190,090}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP1DIET {c |}{col 15}{res}{space 2} 38.82287{col 27}{space 2} .0706202{col 38}{space 5} 38.68446{col 52}{space 3} 38.96129
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}LE8_COMP2PA {c |}{col 14}{res}{space 2} 46.68937{col 26}{space 2} .0803057{col 37}{space 5} 46.53197{col 51}{space 3} 46.84677
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:190,124}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}       Mean{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP3NICOTINE {c |}{col 19}{res}{space 2} 86.85776{col 31}{space 2} .0627926{col 42}{space 5} 86.73469{col 56}{space 3} 86.98083
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:188,997}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP4SLEEP {c |}{col 16}{res}{space 2} 88.75236{col 28}{space 2}  .044002{col 39}{space 5} 88.66612{col 53}{space 3}  88.8386
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:189,523}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP5BMI {c |}{col 14}{res}{space 2} 70.36742{col 26}{space 2}  .068097{col 37}{space 5} 70.23395{col 51}{space 3} 70.50089
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:162,836}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}       Mean{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP6LIPIDS {c |}{col 17}{res}{space 2} 43.59257{col 29}{space 2} .0699058{col 40}{space 5} 43.45556{col 54}{space 3} 43.72959
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:177,872}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_COMP7GLUC {c |}{col 15}{res}{space 2} 90.69831{col 27}{space 2} .0460247{col 38}{space 5}  90.6081{col 52}{space 3} 90.78852
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:178,306}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}LE8_COMP8BP {c |}{col 14}{res}{space 2} 40.95583{col 26}{space 2} .0768376{col 37}{space 5} 40.80523{col 51}{space 3} 41.10643
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:190,124}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_TOTALSCORE {c |}{col 16}{res}{space 2} 509.2829{col 28}{space 2} .2238212{col 39}{space 5} 508.8442{col 53}{space 3} 509.7215
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 41}{lalign 13:Number of obs}{col 54} = {res}{ralign 7:190,124}
+
+{txt}{hline 14}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 15}{c |}       Mean{col 27}   Std. err.{col 39}     [95% con{col 52}f. interval]
+{hline 14}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_LIFESTYLE {c |}{col 15}{res}{space 2} 260.8917{col 27}{space 2} .1431575{col 38}{space 5} 260.6111{col 52}{space 3} 261.1723
+{txt}{hline 14}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 42}{lalign 13:Number of obs}{col 55} = {res}{ralign 7:190,124}
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 16}{c |}       Mean{col 28}   Std. err.{col 40}     [95% con{col 53}f. interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_BIOLOGICAL {c |}{col 16}{res}{space 2} 248.0425{col 28}{space 2} .1600047{col 39}{space 5} 247.7288{col 53}{space 3} 248.3561
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 46}{lalign 13:Number of obs}{col 59} = {res}{ralign 7:190,124}
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 20}{c |}       Mean{col 32}   Std. err.{col 44}     [95% con{col 57}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_TOTALSCOREtert {c |}{col 20}{res}{space 2} 2.056873{col 32}{space 2} .0018788{col 43}{space 5} 2.053191{col 57}{space 3} 2.060556
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:190,124}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}       Mean{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_LIFESTYLEtert {c |}{col 19}{res}{space 2} 2.050867{col 31}{space 2} .0018733{col 42}{space 5} 2.047195{col 56}{space 3} 2.054538
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 46}{lalign 13:Number of obs}{col 59} = {res}{ralign 7:190,124}
+
+{txt}{hline 19}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 20}{c |}       Mean{col 32}   Std. err.{col 44}     [95% con{col 57}f. interval]
+{hline 19}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+LE8_BIOLOGICALtert {c |}{col 20}{res}{space 2} 2.019009{col 32}{space 2} .0018885{col 43}{space 5} 2.015307{col 57}{space 3}  2.02271
+{txt}{hline 19}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}       Mean{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 9}SES {c |}{col 14}{res}{space 2}-.0632667{col 26}{space 2} .0015397{col 37}{space 5}-.0662845{col 51}{space 3}-.0602489
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:190,124}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}       Mean{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden {c |}{col 17}{res}{space 2} .8123383{col 29}{space 2} .0033911{col 40}{space 5} .8056917{col 54}{space 3} .8189848
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 47}{lalign 13:Number of obs}{col 60} = {res}{ralign 7:190,124}
+
+{txt}{hline 20}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 21}{c |}       Mean{col 33}   Std. err.{col 45}     [95% con{col 58}f. interval]
+{hline 20}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenhosp {c |}{col 21}{res}{space 2} .2670257{col 33}{space 2} .0021125{col 44}{space 5} .2628854{col 58}{space 3} .2711661
+{txt}{hline 20}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Mean estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:190,124}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}       Mean{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden_THREE {c |}{col 23}{res}{space 2} .4893648{col 35}{space 2} .0016264{col 46}{space 5} .4861771{col 60}{space 3} .4925526
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. 
+. 
+. 
+. foreach x2 of varlist dem_diag ad_diag SEX RACE_ETHN NonWhite educationbr householdincome infectionburdenbr infectionburdenhospbr infectionburden_THREE {c -(}
+{txt}  2{com}.          prop `x2' if sample_final==1 & SEX==2
+{txt}  3{com}.                 
+. {c )-}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}dem_diag {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9847573{col 26}{space 2}  .000281{col 37}{space 5} .9841967{col 51}{space 3} .9852983
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .0152427{col 26}{space 2}  .000281{col 37}{space 5} .0147017{col 51}{space 3} .0158033
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 5}ad_diag {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9929204{col 26}{space 2} .0001923{col 37}{space 5} .9925334{col 51}{space 3} .9932875
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .0070796{col 26}{space 2} .0001923{col 37}{space 5} .0067125{col 51}{space 3} .0074666
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 7}2.SEX {c |}{col 14}{res}{space 2}        1{col 26}{space 2}        0{col 37}{space 5}        .{col 51}{space 3}        .
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 3}RACE_ETHN {c |}
+{space 10}0  {c |}{col 14}{res}{space 2} .9581957{col 26}{space 2}  .000459{col 37}{space 5} .9572867{col 51}{space 3} .9590861
+{txt}{space 10}1  {c |}{col 14}{res}{space 2}  .011745{col 26}{space 2} .0002471{col 37}{space 5} .0112704{col 51}{space 3} .0122392
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .0125392{col 26}{space 2} .0002552{col 37}{space 5} .0120487{col 51}{space 3} .0130493
+{txt}{space 10}3  {c |}{col 14}{res}{space 2} .0175201{col 26}{space 2} .0003009{col 37}{space 5}   .01694{col 51}{space 3} .0181197
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:190,124}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 4}NonWhite {c |}
+{space 6}white  {c |}{col 14}{res}{space 2} .9581957{col 26}{space 2}  .000459{col 37}{space 5} .9572867{col 51}{space 3} .9590861
+{txt}{space 2}Non-White  {c |}{col 14}{res}{space 2} .0418043{col 26}{space 2}  .000459{col 37}{space 5} .0409139{col 51}{space 3} .0427133
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 40}{lalign 13:Number of obs}{col 53} = {res}{ralign 7:160,059}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 14}{c |}{col 37}             L{col 51}ogit
+{col 14}{c |} Proportion{col 26}   Std. err.{col 38}     [95% con{col 51}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+{space 1}educationbr {c |}
+{space 10}0  {c |}{col 14}{res}{space 2}  .198683{col 26}{space 2} .0009973{col 37}{space 5} .1967355{col 51}{space 3}  .200645
+{txt}{space 10}1  {c |}{col 14}{res}{space 2} .4349271{col 26}{space 2} .0012391{col 37}{space 5}    .4325{col 51}{space 3} .4373574
+{txt}{space 10}2  {c |}{col 14}{res}{space 2} .3663899{col 26}{space 2} .0012043{col 37}{space 5} .3640327{col 51}{space 3} .3687535
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 43}{lalign 13:Number of obs}{col 56} = {res}{ralign 7:165,408}
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 17}{c |}{col 40}             L{col 54}ogit
+{col 17}{c |} Proportion{col 29}   Std. err.{col 41}     [95% con{col 54}f. interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+householdincome {c |}
+{space 13}1  {c |}{col 17}{res}{space 2} .2830335{col 29}{space 2} .0011076{col 40}{space 5} .2808676{col 54}{space 3} .2852094
+{txt}{space 13}2  {c |}{col 17}{res}{space 2}  .288396{col 29}{space 2} .0011139{col 40}{space 5} .2862177{col 54}{space 3}  .290584
+{txt}{space 13}3  {c |}{col 17}{res}{space 2} .2375399{col 29}{space 2} .0010464{col 40}{space 5} .2354951{col 54}{space 3} .2395969
+{txt}{space 13}4  {c |}{col 17}{res}{space 2} .1538438{col 29}{space 2} .0008871{col 40}{space 5} .1521131{col 54}{space 3} .1555906
+{txt}{space 13}5  {c |}{col 17}{res}{space 2} .0371868{col 29}{space 2} .0004653{col 40}{space 5} .0362856{col 54}{space 3} .0381095
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 45}{lalign 13:Number of obs}{col 58} = {res}{ralign 7:190,124}
+
+{txt}{hline 18}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 19}{c |}{col 42}             L{col 56}ogit
+{col 19}{c |} Proportion{col 31}   Std. err.{col 43}     [95% con{col 56}f. interval]
+{hline 18}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenbr {c |}
+{space 15}0  {c |}{col 19}{res}{space 2} .6371579{col 31}{space 2} .0011027{col 42}{space 5} .6349938{col 56}{space 3} .6393164
+{txt}{space 15}1  {c |}{col 19}{res}{space 2} .3628421{col 31}{space 2} .0011027{col 42}{space 5} .3606836{col 56}{space 3} .3650062
+{txt}{hline 18}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:190,124}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}{col 46}             L{col 60}ogit
+{col 23}{c |} Proportion{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburdenhospbr {c |}
+{space 19}0  {c |}{col 23}{res}{space 2} .8734773{col 35}{space 2} .0007624{col 46}{space 5} .8719754{col 60}{space 3} .8749641
+{txt}{space 19}1  {c |}{col 23}{res}{space 2} .1265227{col 35}{space 2} .0007624{col 46}{space 5} .1250359{col 60}{space 3} .1280246
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+{res}
+{txt}{col 1}Proportion estimation{col 49}{lalign 13:Number of obs}{col 62} = {res}{ralign 7:190,124}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 14}{hline 12}
+{col 23}{c |}{col 46}             L{col 60}ogit
+{col 23}{c |} Proportion{col 35}   Std. err.{col 47}     [95% con{col 60}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 14}{hline 12}
+infectionburden_THREE {c |}
+{space 19}0  {c |}{col 23}{res}{space 2} .6371579{col 35}{space 2} .0011027{col 46}{space 5} .6349938{col 60}{space 3} .6393164
+{txt}{space 19}1  {c |}{col 23}{res}{space 2} .2363195{col 35}{space 2} .0009743{col 46}{space 5} .2344152{col 60}{space 3} .2382344
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} .1265227{col 35}{space 2} .0007624{col 46}{space 5} .1250359{col 60}{space 3} .1280246
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 14}{hline 12}
+
+{com}. 
+. 
+. **Difference by sex**
+. 
+. 
+. foreach x1 of varlist AGE householdsize townsend LE8* SES infectionburden infectionburdenhosp infectionburden_THREE {c -(}
+{txt}  2{com}.          reg `x1' SEX if sample_final==1 
+{txt}  3{com}. {c )-}
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}  1020.82
+{txt}       Model {c |} {res} 30139.7191         1  30139.7191   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 10482676.9   355,044   29.525008   {txt}R-squared       ={res}    0.0029
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0029
+{txt}       Total {c |} {res} 10512816.7   355,045  29.6098147   {txt}Root MSE        =   {res} 5.4337
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}         AGE{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2}  -.58419{col 26}{space 2} .0182844{col 37}{space 1}  -31.95{col 46}{space 3}0.000{col 54}{space 4}-.6200268{col 67}{space 3}-.5483532
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 61.31176{col 26}{space 2} .0295193{col 37}{space 1} 2077.00{col 46}{space 3}0.000{col 54}{space 4}  61.2539{col 67}{space 3} 61.36961
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}  1296.36
+{txt}       Model {c |} {res}  1777.4056         1   1777.4056   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 486791.186   355,044  1.37107284   {txt}R-squared       ={res}    0.0036
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0036
+{txt}       Total {c |} {res} 488568.592   355,045  1.37607512   {txt}Root MSE        =   {res} 1.1709
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}households~e{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.1418658{col 26}{space 2} .0039402{col 37}{space 1}  -36.01{col 46}{space 3}0.000{col 54}{space 4}-.1495884{col 67}{space 3}-.1341432
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 2.448314{col 26}{space 2} .0063612{col 37}{space 1}  384.88{col 46}{space 3}0.000{col 54}{space 4} 2.435846{col 67}{space 3} 2.460782
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   354,740
+{txt}{hline 13}{c +}{hline 34}   F(1, 354738)    = {res}    12.95
+{txt}       Model {c |} {res} 114.404627         1  114.404627   {txt}Prob > F        ={res}    0.0003
+{txt}    Residual {c |} {res} 3132719.06   354,738  8.83107832   {txt}R-squared       ={res}    0.0000
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0000
+{txt}       Total {c |} {res} 3132833.47   354,739  8.83137593   {txt}Root MSE        =   {res} 2.9717
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    townsend{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.0360077{col 26}{space 2} .0100042{col 37}{space 1}   -3.60{col 46}{space 3}0.000{col 54}{space 4}-.0556155{col 67}{space 3}-.0163998
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.461482{col 26}{space 2} .0161515{col 37}{space 1}  -90.49{col 46}{space 3}0.000{col 54}{space 4}-1.493139{col 67}{space 3}-1.429826
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   354,960
+{txt}{hline 13}{c +}{hline 34}   F(1, 354958)    = {res}  9993.08
+{txt}       Model {c |} {res} 9359137.94         1  9359137.94   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  332440102   354,958  936.561797   {txt}R-squared       ={res}    0.0274
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0274
+{txt}       Total {c |} {res}  341799240   354,959  962.925972   {txt}Root MSE        =   {res} 30.603
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_COMP1D~T{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 10.29573{col 26}{space 2} .1029929{col 37}{space 1}   99.97{col 46}{space 3}0.000{col 54}{space 4} 10.09387{col 67}{space 3} 10.49759
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 18.23141{col 26}{space 2}  .166281{col 37}{space 1}  109.64{col 46}{space 3}0.000{col 54}{space 4} 17.90551{col 67}{space 3} 18.55732
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}   454.19
+{txt}       Model {c |} {res} 559218.458         1  559218.458   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  437146152   355,044    1231.245   {txt}R-squared       ={res}    0.0013
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0013
+{txt}       Total {c |} {res}  437705370   355,045   1232.8166   {txt}Root MSE        =   {res} 35.089
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} LE8_COMP2PA{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2}-2.516375{col 26}{space 2} .1180747{col 37}{space 1}  -21.31{col 46}{space 3}0.000{col 54}{space 4}-2.747798{col 67}{space 3}-2.284952
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 51.72212{col 26}{space 2} .1906266{col 37}{space 1}  271.33{col 46}{space 3}0.000{col 54}{space 4}  51.3485{col 67}{space 3} 52.09574
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}  2268.65
+{txt}       Model {c |} {res} 1937570.15         1  1937570.15   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  303229849   355,044  854.062734   {txt}R-squared       ={res}    0.0063
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0063
+{txt}       Total {c |} {res}  305167420   355,045  859.517581   {txt}Root MSE        =   {res} 29.224
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_COMP3N~E{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 4.683961{col 26}{space 2} .0983398{col 37}{space 1}   47.63{col 46}{space 3}0.000{col 54}{space 4} 4.491218{col 67}{space 3} 4.876704
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 77.48984{col 26}{space 2} .1587655{col 37}{space 1}  488.08{col 46}{space 3}0.000{col 54}{space 4} 77.17866{col 67}{space 3} 77.80102
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   353,366
+{txt}{hline 13}{c +}{hline 34}   F(1, 353364)    = {res}    92.10
+{txt}       Model {c |} {res} 32645.7151         1  32645.7151   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  125252347   353,364   354.45701   {txt}R-squared       ={res}    0.0003
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0003
+{txt}       Total {c |} {res}  125284993   353,365  354.548393   {txt}Root MSE        =   {res} 18.827
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_COMP4S~P{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.6093798{col 26}{space 2} .0634975{col 37}{space 1}   -9.60{col 46}{space 3}0.000{col 54}{space 4}-.7338331{col 67}{space 3}-.4849265
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 89.97112{col 26}{space 2} .1024761{col 37}{space 1}  877.97{col 46}{space 3}0.000{col 54}{space 4} 89.77027{col 67}{space 3} 90.17197
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   353,766
+{txt}{hline 13}{c +}{hline 34}   F(1, 353764)    = {res}  2065.81
+{txt}       Model {c |} {res} 1664426.87         1  1664426.87   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  285027803   353,764   805.70042   {txt}R-squared       ={res}    0.0058
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0058
+{txt}       Total {c |} {res}  286692230   353,765  810.403037   {txt}Root MSE        =   {res} 28.385
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_COMP5BMI{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 4.349266{col 26}{space 2} .0956909{col 37}{space 1}   45.45{col 46}{space 3}0.000{col 54}{space 4} 4.161715{col 67}{space 3} 4.536818
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 61.66889{col 26}{space 2} .1545101{col 37}{space 1}  399.13{col 46}{space 3}0.000{col 54}{space 4} 61.36605{col 67}{space 3} 61.97172
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   307,261
+{txt}{hline 13}{c +}{hline 34}   F(1, 307259)    = {res}  7959.12
+{txt}       Model {c |} {res} 7066935.32         1  7066935.32   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  272816589   307,259  887.904306   {txt}R-squared       ={res}    0.0252
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0252
+{txt}       Total {c |} {res}  279883525   307,260  910.901271   {txt}Root MSE        =   {res} 29.798
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_COMP6L~S{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2}-9.608882{col 26}{space 2} .1077061{col 37}{space 1}  -89.21{col 46}{space 3}0.000{col 54}{space 4}-9.819983{col 67}{space 3}-9.397781
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 62.81034{col 26}{space 2} .1733326{col 37}{space 1}  362.37{col 46}{space 3}0.000{col 54}{space 4} 62.47061{col 67}{space 3} 63.15006
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   333,452
+{txt}{hline 13}{c +}{hline 34}   F(1, 333450)    = {res}  1215.46
+{txt}       Model {c |} {res} 533823.615         1  533823.615   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  146450035   333,450  439.196385   {txt}R-squared       ={res}    0.0036
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0036
+{txt}       Total {c |} {res}  146983858   333,451  440.795973   {txt}Root MSE        =   {res} 20.957
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_COMP7G~C{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 2.536208{col 26}{space 2}  .072747{col 37}{space 1}   34.86{col 46}{space 3}0.000{col 54}{space 4} 2.393626{col 67}{space 3}  2.67879
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  85.6259{col 26}{space 2} .1173074{col 37}{space 1}  729.93{col 46}{space 3}0.000{col 54}{space 4} 85.39598{col 67}{space 3} 85.85581
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   333,181
+{txt}{hline 13}{c +}{hline 34}   F(1, 333179)    = {res}  3366.94
+{txt}       Model {c |} {res}  3152834.7         1   3152834.7   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}  311992252   333,179  936.410313   {txt}R-squared       ={res}    0.0100
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0100
+{txt}       Total {c |} {res}  315145086   333,180  945.870359   {txt}Root MSE        =   {res} 30.601
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} LE8_COMP8BP{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 6.167612{col 26}{space 2} .1062918{col 37}{space 1}   58.03{col 46}{space 3}0.000{col 54}{space 4} 5.959284{col 67}{space 3} 6.375941
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}  28.6206{col 26}{space 2} .1715711{col 37}{space 1}  166.81{col 46}{space 3}0.000{col 54}{space 4} 28.28433{col 67}{space 3} 28.95688
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}  2718.57
+{txt}       Model {c |} {res}   24907257         1    24907257   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 3.2529e+09   355,044  9161.88434   {txt}R-squared       ={res}    0.0076
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0076
+{txt}       Total {c |} {res} 3.2778e+09   355,045  9232.01093   {txt}Root MSE        =   {res} 95.718
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_TOTALS~E{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 16.79374{col 26}{space 2} .3220898{col 37}{space 1}   52.14{col 46}{space 3}0.000{col 54}{space 4} 16.16246{col 67}{space 3} 17.42503
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 475.6954{col 26}{space 2} .5200003{col 37}{space 1}  914.80{col 46}{space 3}0.000{col 54}{space 4} 474.6762{col 67}{space 3} 476.7146
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}  3064.19
+{txt}       Model {c |} {res} 12236523.5         1  12236523.5   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 1.4178e+09   355,044  3993.40166   {txt}R-squared       ={res}    0.0086
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0086
+{txt}       Total {c |} {res} 1.4301e+09   355,045  4027.85513   {txt}Root MSE        =   {res} 63.193
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_LIFEST~E{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 11.77101{col 26}{space 2} .2126454{col 37}{space 1}   55.36{col 46}{space 3}0.000{col 54}{space 4} 11.35423{col 67}{space 3} 12.18778
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 237.3497{col 26}{space 2}  .343307{col 37}{space 1}  691.36{col 46}{space 3}0.000{col 54}{space 4} 236.6768{col 67}{space 3} 238.0226
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}   456.44
+{txt}       Model {c |} {res} 2018003.37         1  2018003.37   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 1.5697e+09   355,044  4421.22108   {txt}R-squared       ={res}    0.0013
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0013
+{txt}       Total {c |} {res} 1.5717e+09   355,045  4426.89243   {txt}Root MSE        =   {res} 66.492
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_BIOLOG~L{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} 4.780194{col 26}{space 2} .2237462{col 37}{space 1}   21.36{col 46}{space 3}0.000{col 54}{space 4} 4.341658{col 67}{space 3}  5.21873
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 238.4821{col 26}{space 2} .3612288{col 37}{space 1}  660.20{col 46}{space 3}0.000{col 54}{space 4} 237.7741{col 67}{space 3} 239.1901
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}  2471.64
+{txt}       Model {c |} {res} 1627.68124         1  1627.68124   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 233811.724   355,044  .658542952   {txt}R-squared       ={res}    0.0069
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0069
+{txt}       Total {c |} {res} 235439.405   355,045  .663125534   {txt}Root MSE        =   {res} .81151
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_TOTALS~t{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} .1357592{col 26}{space 2} .0027307{col 37}{space 1}   49.72{col 46}{space 3}0.000{col 54}{space 4} .1304071{col 67}{space 3} .1411113
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.785355{col 26}{space 2} .0044086{col 37}{space 1}  404.97{col 46}{space 3}0.000{col 54}{space 4} 1.776714{col 67}{space 3} 1.793996
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}  2393.45
+{txt}       Model {c |} {res} 1594.32256         1  1594.32256   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 236501.355   355,044  .666118438   {txt}R-squared       ={res}    0.0067
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0067
+{txt}       Total {c |} {res} 238095.677   355,045  .670607042   {txt}Root MSE        =   {res} .81616
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_LIFEST~t{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} .1343608{col 26}{space 2} .0027464{col 37}{space 1}   48.92{col 46}{space 3}0.000{col 54}{space 4}  .128978{col 67}{space 3} .1397436
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.782145{col 26}{space 2} .0044339{col 37}{space 1}  401.94{col 46}{space 3}0.000{col 54}{space 4} 1.773455{col 67}{space 3} 1.790836
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}   486.26
+{txt}       Model {c |} {res} 322.679998         1  322.679998   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 235604.117   355,044  .663591321   {txt}R-squared       ={res}    0.0014
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0014
+{txt}       Total {c |} {res} 235926.797   355,045  .664498295   {txt}Root MSE        =   {res} .81461
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}LE8_BIOLOG~t{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} .0604464{col 26}{space 2} .0027412{col 37}{space 1}   22.05{col 46}{space 3}0.000{col 54}{space 4} .0550738{col 67}{space 3}  .065819
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 1.898116{col 26}{space 2} .0044255{col 37}{space 1}  428.91{col 46}{space 3}0.000{col 54}{space 4} 1.889442{col 67}{space 3}  1.90679
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}   269.08
+{txt}       Model {c |} {res} 128.825906         1  128.825906   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 169984.003   355,044  .478768838   {txt}R-squared       ={res}    0.0008
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0008
+{txt}       Total {c |} {res} 170112.829   355,045  .479130334   {txt}Root MSE        =   {res} .69193
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}         SES{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.0381932{col 26}{space 2} .0023283{col 37}{space 1}  -16.40{col 46}{space 3}0.000{col 54}{space 4}-.0427567{col 67}{space 3}-.0336297
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .0131197{col 26}{space 2}  .003759{col 37}{space 1}    3.49{col 46}{space 3}0.000{col 54}{space 4} .0057522{col 67}{space 3} .0204873
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}   947.27
+{txt}       Model {c |} {res} 1790.29084         1  1790.29084   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 671017.962   355,044   1.8899572   {txt}R-squared       ={res}    0.0027
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0027
+{txt}       Total {c |} {res} 672808.253   355,045  1.89499431   {txt}Root MSE        =   {res} 1.3748
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}infectionb~n{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} .1423791{col 26}{space 2} .0046261{col 37}{space 1}   30.78{col 46}{space 3}0.000{col 54}{space 4} .1333122{col 67}{space 3} .1514461
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}   .52758{col 26}{space 2} .0074686{col 37}{space 1}   70.64{col 46}{space 3}0.000{col 54}{space 4} .5129418{col 67}{space 3} .5422182
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}    28.25
+{txt}       Model {c |} {res} 21.9563383         1  21.9563383   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 275908.002   355,044  .777109321   {txt}R-squared       ={res}    0.0001
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0001
+{txt}       Total {c |} {res} 275929.958   355,045  .777168973   {txt}Root MSE        =   {res} .88154
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}infec~enhosp{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} .0157676{col 26}{space 2} .0029664{col 37}{space 1}    5.32{col 46}{space 3}0.000{col 54}{space 4} .0099536{col 67}{space 3} .0215816
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .2354906{col 26}{space 2} .0047891{col 37}{space 1}   49.17{col 46}{space 3}0.000{col 54}{space 4} .2261042{col 67}{space 3} .2448771
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}   355,046
+{txt}{hline 13}{c +}{hline 34}   F(1, 355044)    = {res}   123.24
+{txt}       Model {c |} {res}   62.00719         1    62.00719   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 178636.595   355,044  .503139315   {txt}R-squared       ={res}    0.0003
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.0003
+{txt}       Total {c |} {res} 178698.602   355,045  .503312544   {txt}Root MSE        =   {res} .70932
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}infectionb~E{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      t{col 46}   P>|t|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 9}SEX {c |}{col 14}{res}{space 2} .0264975{col 26}{space 2} .0023869{col 37}{space 1}   11.10{col 46}{space 3}0.000{col 54}{space 4} .0218193{col 67}{space 3} .0311757
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .4363698{col 26}{space 2} .0038535{col 37}{space 1}  113.24{col 46}{space 3}0.000{col 54}{space 4}  .428817{col 67}{space 3} .4439225
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}{txt}
+{com}. 
+. 
+. 
+. foreach x2 of varlist dem_diag ad_diag  RACE_ETHN NonWhite educationbr householdincome infectionburdenbr infectionburdenhospbr infectionburden_THREE {c -(}
+{txt}  2{com}.          mlogit `x2' SEX if sample_final==1
+{txt}  3{com}.                 
+. {c )-}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-31783.852}  
+Iteration 1:{space 2}Log likelihood = {res:-31705.633}  
+Iteration 2:{space 2}Log likelihood = {res:-31705.162}  
+Iteration 3:{space 2}Log likelihood = {res:-31705.162}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:355,046}
+{txt}{col 56}{lalign 13:LR chi2({res:1})}{col 69} = {res}{ralign 7:157.38}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-31705.162}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0025}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    dem_diag{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}0           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}1            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.3184823{col 26}{space 2}  .025447{col 37}{space 1}  -12.52{col 46}{space 3}0.000{col 54}{space 4}-.3683576{col 67}{space 3}-.2686071
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-3.531331{col 26}{space 2} .0392299{col 37}{space 1}  -90.02{col 46}{space 3}0.000{col 54}{space 4} -3.60822{col 67}{space 3}-3.454442
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-15692.268}  
+Iteration 1:{space 2}Log likelihood = {res:-15687.288}  
+Iteration 2:{space 2}Log likelihood = {res:-15687.283}  
+Iteration 3:{space 2}Log likelihood = {res:-15687.283}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:355,046}
+{txt}{col 56}{lalign 13:LR chi2({res:1})}{col 69} = {res}{ralign 7:9.97}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0016}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-15687.283}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0003}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}     ad_diag{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}0           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}1            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.1228656{col 26}{space 2} .0388909{col 37}{space 1}   -3.16{col 46}{space 3}0.002{col 54}{space 4}-.1990904{col 67}{space 3}-.0466408
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-4.697703{col 26}{space 2}  .061687{col 37}{space 1}  -76.15{col 46}{space 3}0.000{col 54}{space 4}-4.818608{col 67}{space 3}-4.576799
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-77686.858}  
+Iteration 1:{space 2}Log likelihood = {res: -77578.58}  
+Iteration 2:{space 2}Log likelihood = {res:-77578.044}  
+Iteration 3:{space 2}Log likelihood = {res:-77578.044}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:355,046}
+{txt}{col 56}{lalign 13:LR chi2({res:3})}{col 69} = {res}{ralign 7:217.63}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-77578.044}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0014}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}   RACE_ETHN{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}0           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}1            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2} .2165224{col 26}{space 2} .0331764{col 37}{space 1}    6.53{col 46}{space 3}0.000{col 54}{space 4}  .151498{col 67}{space 3} .2815469
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-4.834672{col 26}{space 2} .0551609{col 37}{space 1}  -87.65{col 46}{space 3}0.000{col 54}{space 4}-4.942786{col 67}{space 3}-4.726559
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}2            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.3245292{col 26}{space 2} .0279429{col 37}{space 1}  -11.61{col 46}{space 3}0.000{col 54}{space 4}-.3792964{col 67}{space 3} -.269762
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-3.687135{col 26}{space 2} .0429927{col 37}{space 1}  -85.76{col 46}{space 3}0.000{col 54}{space 4}-3.771399{col 67}{space 3}-3.602871
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}3            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2} .1597547{col 26}{space 2} .0267962{col 37}{space 1}    5.96{col 46}{space 3}0.000{col 54}{space 4} .1072351{col 67}{space 3} .2122743
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} -4.32121{col 26}{space 2} .0442159{col 37}{space 1}  -97.73{col 46}{space 3}0.000{col 54}{space 4}-4.407872{col 67}{space 3}-4.234549
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-61616.219}  
+Iteration 1:{space 2}Log likelihood = {res:-61616.215}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:355,046}
+{txt}{col 56}{lalign 13:LR chi2({res:1})}{col 69} = {res}{ralign 7:0.01}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.9250}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-61616.215}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0000}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}    NonWhite{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}white       {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}Non_White    {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2} .0015826{col 26}{space 2} .0168196{col 37}{space 1}    0.09{col 46}{space 3}0.925{col 54}{space 4}-.0313832{col 67}{space 3} .0345484
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-3.135218{col 26}{space 2} .0271602{col 37}{space 1} -115.43{col 46}{space 3}0.000{col 54}{space 4}-3.188451{col 67}{space 3}-3.081985
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-314998.94}  
+Iteration 1:{space 2}Log likelihood = {res:-313786.56}  
+Iteration 2:{space 2}Log likelihood = {res:-313785.94}  
+Iteration 3:{space 2}Log likelihood = {res:-313785.94}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:295,455}
+{txt}{col 56}{lalign 13:LR chi2({res:2})}{col 69} = {res}{ralign 7:2426.00}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-313785.94}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0039}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} educationbr{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}0            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.4144184{col 26}{space 2} .0098926{col 37}{space 1}  -41.89{col 46}{space 3}0.000{col 54}{space 4}-.4338074{col 67}{space 3}-.3950293
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .0453688{col 26}{space 2}  .015938{col 37}{space 1}    2.85{col 46}{space 3}0.004{col 54}{space 4} .0141309{col 67}{space 3} .0766067
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}1           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}2            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.3450113{col 26}{space 2} .0084013{col 37}{space 1}  -41.07{col 46}{space 3}0.000{col 54}{space 4}-.3614776{col 67}{space 3} -.328545
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .5185422{col 26}{space 2} .0137142{col 37}{space 1}   37.81{col 46}{space 3}0.000{col 54}{space 4} .4916629{col 67}{space 3} .5454215
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res: -475787.7}  
+Iteration 1:{space 2}Log likelihood = {res:-474740.89}  
+Iteration 2:{space 2}Log likelihood = {res:-474739.24}  
+Iteration 3:{space 2}Log likelihood = {res:-474739.24}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:318,904}
+{txt}{col 56}{lalign 13:LR chi2({res:4})}{col 69} = {res}{ralign 7:2096.92}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-474739.24}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0022}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}householdi~e{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}1            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2} .1166475{col 26}{space 2} .0097312{col 37}{space 1}   11.99{col 46}{space 3}0.000{col 54}{space 4} .0975746{col 67}{space 3} .1357203
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.2520642{col 26}{space 2} .0158688{col 37}{space 1}  -15.88{col 46}{space 3}0.000{col 54}{space 4}-.2831664{col 67}{space 3} -.220962
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}2           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}3            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.1502283{col 26}{space 2} .0098153{col 37}{space 1}  -15.31{col 46}{space 3}0.000{col 54}{space 4}-.1694658{col 67}{space 3}-.1309907
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} .1064577{col 26}{space 2} .0156881{col 37}{space 1}    6.79{col 46}{space 3}0.000{col 54}{space 4} .0757096{col 67}{space 3} .1372057
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}4            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.3045842{col 26}{space 2} .0108825{col 37}{space 1}  -27.99{col 46}{space 3}0.000{col 54}{space 4}-.3259136{col 67}{space 3}-.2832548
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} -.019228{col 26}{space 2} .0171154{col 37}{space 1}   -1.12{col 46}{space 3}0.261{col 54}{space 4}-.0527736{col 67}{space 3} .0143176
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}5            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.4080464{col 26}{space 2}  .018272{col 37}{space 1}  -22.33{col 46}{space 3}0.000{col 54}{space 4} -.443859{col 67}{space 3}-.3722339
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.232287{col 26}{space 2} .0280153{col 37}{space 1}  -43.99{col 46}{space 3}0.000{col 54}{space 4}-1.287196{col 67}{space 3}-1.177378
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res: -229903.6}  
+Iteration 1:{space 2}Log likelihood = {res:-229758.29}  
+Iteration 2:{space 2}Log likelihood = {res:-229758.28}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:355,046}
+{txt}{col 56}{lalign 13:LR chi2({res:1})}{col 69} = {res}{ralign 7:290.63}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-229758.28}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0006}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}infectio~nbr{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}0           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}1            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2} .1203995{col 26}{space 2} .0070675{col 37}{space 1}   17.04{col 46}{space 3}0.000{col 54}{space 4} .1065476{col 67}{space 3} .1342515
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-.8038486{col 26}{space 2} .0114692{col 37}{space 1}  -70.09{col 46}{space 3}0.000{col 54}{space 4}-.8263279{col 67}{space 3}-.7813693
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-135090.44}  
+Iteration 1:{space 2}Log likelihood = {res:-135090.15}  
+Iteration 2:{space 2}Log likelihood = {res:-135090.15}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:355,046}
+{txt}{col 56}{lalign 13:LR chi2({res:1})}{col 69} = {res}{ralign 7:0.58}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.4466}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-135090.15}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0000}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}inf~enhospbr{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}0           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}1            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2}-.0076934{col 26}{space 2} .0101067{col 37}{space 1}   -0.76{col 46}{space 3}0.447{col 54}{space 4}-.0275021{col 67}{space 3} .0121153
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.916674{col 26}{space 2} .0163034{col 37}{space 1} -117.56{col 46}{space 3}0.000{col 54}{space 4}-1.948628{col 67}{space 3} -1.88472
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{res}{txt}Iteration 0:{space 2}Log likelihood = {res:-311309.18}  
+Iteration 1:{space 2}Log likelihood = {res:-311100.32}  
+Iteration 2:{space 2}Log likelihood = {res:-311100.22}  
+Iteration 3:{space 2}Log likelihood = {res:-311100.22}  
+{res}
+{txt}{col 1}Multinomial logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:355,046}
+{txt}{col 56}{lalign 13:LR chi2({res:2})}{col 69} = {res}{ralign 7:417.92}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-311100.22}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0007}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}infectionb~E{col 14}{c |} Coefficient{col 26}  Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}{res}0           {col 14}{txt}{c |}  (base outcome)
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}1            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2} .1691158{col 26}{space 2} .0082929{col 37}{space 1}   20.39{col 46}{space 3}0.000{col 54}{space 4} .1528621{col 67}{space 3} .1853695
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.330064{col 26}{space 2} .0135481{col 37}{space 1}  -98.17{col 46}{space 3}0.000{col 54}{space 4}-1.356618{col 67}{space 3}-1.303511
+{txt}{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}2            {txt}{c |}
+{space 9}SEX {c |}{col 14}{res}{space 2} .0353129{col 26}{space 2} .0103225{col 37}{space 1}    3.42{col 46}{space 3}0.001{col 54}{space 4} .0150811{col 67}{space 3} .0555446
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2}-1.687222{col 26}{space 2} .0166354{col 37}{space 1} -101.42{col 46}{space 3}0.000{col 54}{space 4}-1.719826{col 67}{space 3}-1.654617
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+D:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. ***********************************************************ALL INFECTIONS: TABLES 2 AND 3*******************************************************
+. 
+. capture log close
+{smcl}
+{com}{sf}{ul off}

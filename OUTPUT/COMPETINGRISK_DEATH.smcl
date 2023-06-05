@@ -1,0 +1,109 @@
+{smcl}
+{com}{sf}{ul off}{txt}
+{com}. 
+. 
+. use "D:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. 
+. 
+. 
+. 
+. ***********************SENSITIVITY ANALYSIS**************************************
+. 
+. 
+. *************************************************STSET FOR DEMENTIA**********************************
+. stset Age_dementia if sample_final==1, failure(dem_diag==1) enter(baselineage) id(n_eid) scale(1)
+
+{txt}Survival-time data settings
+
+{col 12}ID variable: {res}n_eid
+{col 10}{txt}Failure event: {res}dem_diag==1
+{col 1}{txt}Observed time interval: {res}(Age_dementia[_n-1], Age_dementia]
+{col 6}{txt}Enter on or after: {res}time baselineage
+{col 6}{txt}Exit on or before: {res}failure
+{col 7}{txt}Keep observations 
+{col 17}{help j_st_ifvsoptif:{bf:if} {it:exp}}: {res}sample_final==1
+
+{txt}{hline 74}
+{res}    502,389{txt}  total observations
+{res}    147,343{txt}  ignored at outset because of {bf:if} {it:exp}
+{hline 74}
+{res}    355,046{txt}  observations remaining, representing
+{res}    355,046{txt}  subjects
+{res}      6,335{txt}  failures in single-failure-per-subject data
+{res}  4,356,387{txt}  total analysis time at risk and under observation
+                                                At risk from t = {res}        0
+                                     {txt}Earliest observed entry t = {res} 50.00137
+                                          {txt}Last observed exit t = {res} 87.63313
+{txt}
+{com}. 
+. 
+. stcox i.infectionburden_THREE AGE SEX NonWhite householdsize SES  if sample_final==1,  nolog
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:355,046}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:355,046}
+{txt}No. of failures = {res}{ralign 11:6,335}
+{txt}Time at risk    = {res}{ralign 11:4,356,387.3}
+{col 56}{txt}{lalign 13:LR chi2({res:7})} = {res}{ralign 7:1615.34}
+{txt}Log likelihood = {res}-72507.201{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .4995339{col 35}{space 2} .0211797{col 46}{space 1}  -16.37{col 55}{space 3}0.000{col 63}{space 4} .4597005{col 76}{space 3} .5428189
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.942437{col 35}{space 2} .0567661{col 46}{space 1}   22.72{col 55}{space 3}0.000{col 63}{space 4} 1.834303{col 76}{space 3} 2.056944
+{txt}{space 21} {c |}
+{space 18}AGE {c |}{col 23}{res}{space 2}  .940224{col 35}{space 2} .0048031{col 46}{space 1}  -12.07{col 55}{space 3}0.000{col 63}{space 4} .9308572{col 76}{space 3} .9496852
+{txt}{space 18}SEX {c |}{col 23}{res}{space 2}  .757945{col 35}{space 2} .0192519{col 46}{space 1}  -10.91{col 55}{space 3}0.000{col 63}{space 4} .7211359{col 76}{space 3}  .796633
+{txt}{space 13}NonWhite {c |}{col 23}{res}{space 2} 1.104369{col 35}{space 2} .0733241{col 46}{space 1}    1.50{col 55}{space 3}0.135{col 63}{space 4} .9696146{col 76}{space 3} 1.257852
+{txt}{space 8}householdsize {c |}{col 23}{res}{space 2} .9589637{col 35}{space 2} .0143236{col 46}{space 1}   -2.81{col 55}{space 3}0.005{col 63}{space 4} .9312968{col 76}{space 3} .9874525
+{txt}{space 18}SES {c |}{col 23}{res}{space 2} .7175602{col 35}{space 2}  .013424{col 46}{space 1}  -17.74{col 55}{space 3}0.000{col 63}{space 4} .6917261{col 76}{space 3}  .744359
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. stcox i.infectionburden_THREE AGE SEX NonWhite householdsize SES  if sample_final==1  & died==0,  nolog
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Cox regression with Breslow method for ties
+
+No. of subjects = {res}{ralign 11:323,860}{col 56}{txt}{lalign 13:Number of obs} = {res}{ralign 7:323,860}
+{txt}No. of failures = {res}{ralign 11:3,257}
+{txt}Time at risk    = {res}{ralign 11:4,112,389.4}
+{col 56}{txt}{lalign 13:LR chi2({res:7})} = {res}{ralign 7:995.10}
+{txt}Log likelihood = {res}-36707.17{col 56}{txt}{lalign 13:Prob > chi2} = {res}{ralign 7:0.0000}
+
+{txt}{hline 22}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}                   _t{col 23}{c |} Haz. ratio{col 35}   Std. err.{col 47}      z{col 55}   P>|z|{col 63}     [95% con{col 76}f. interval]
+{hline 22}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+infectionburden_THREE {c |}
+{space 19}1  {c |}{col 23}{res}{space 2} .5897766{col 35}{space 2} .0321202{col 46}{space 1}   -9.70{col 55}{space 3}0.000{col 63}{space 4} .5300657{col 76}{space 3} .6562138
+{txt}{space 19}2  {c |}{col 23}{res}{space 2} 1.934448{col 35}{space 2} .0810911{col 46}{space 1}   15.74{col 55}{space 3}0.000{col 63}{space 4} 1.781866{col 76}{space 3} 2.100095
+{txt}{space 21} {c |}
+{space 18}AGE {c |}{col 23}{res}{space 2} .8630021{col 35}{space 2} .0066411{col 46}{space 1}  -19.15{col 55}{space 3}0.000{col 63}{space 4} .8500834{col 76}{space 3} .8761171
+{txt}{space 18}SEX {c |}{col 23}{res}{space 2} .9009897{col 35}{space 2} .0318239{col 46}{space 1}   -2.95{col 55}{space 3}0.003{col 63}{space 4} .8407261{col 76}{space 3} .9655731
+{txt}{space 13}NonWhite {c |}{col 23}{res}{space 2} 1.358103{col 35}{space 2}  .115461{col 46}{space 1}    3.60{col 55}{space 3}0.000{col 63}{space 4} 1.149652{col 76}{space 3} 1.604349
+{txt}{space 8}householdsize {c |}{col 23}{res}{space 2} .9471937{col 35}{space 2} .0202817{col 46}{space 1}   -2.53{col 55}{space 3}0.011{col 63}{space 4} .9082649{col 76}{space 3} .9877911
+{txt}{space 18}SES {c |}{col 23}{res}{space 2}  .708364{col 35}{space 2} .0185534{col 46}{space 1}  -13.16{col 55}{space 3}0.000{col 63}{space 4} .6729177{col 76}{space 3} .7456776
+{txt}{hline 22}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+
+{com}. 
+. 
+{txt}end of do-file
+
+{com}. do "C:\Users\baydounm\AppData\Local\Temp\STD27f0_000000.tmp"
+{txt}
+{com}. 
+. capture log close
+{smcl}
+{com}{sf}{ul off}

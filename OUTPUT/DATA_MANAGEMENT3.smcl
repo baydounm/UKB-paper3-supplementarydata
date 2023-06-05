@@ -1,0 +1,3647 @@
+{smcl}
+{com}{sf}{ul off}{txt}
+{com}. 
+. 
+. ////////////////////////////STEP 14: GENERATE INFECTBURDEN_UKB VARIABLES*************
+> 
+. use "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\SMALLERDATASETUKBfin", clear
+{txt}
+{com}. 
+. keep n_eid ts_130* n_130* ts_131* n_131* ts_132* n_132* ts_53_0_0
+{txt}
+{com}. 
+. save "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\INFECTBURDEN_UKB", replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\INFECTBURDEN_UKB.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. 
+. **************CODING OF SOURCE OF INFECTION*********
+. 
+. **Coding        Meaning
+. **20    Death register only
+. **21    Death register and other source(s)
+. **30    Primary care only
+. **31    Primary care and other source(s)
+. **40    Hospital admissions data only
+. **41    Hospital admissions data and other source(s)
+. **50    Self-report only
+. **51    Self-report and other source(s)
+. 
+. **Select 40 and 41 for hospital treated infections**
+. 
+. *********TOTAL INFECTIOUS BURDEN**************
+. 
+. capture drop ts_13*yn 
+{txt}
+{com}. foreach var1 of varlist ts_13*_0_0 {c -(}
+{txt}  2{com}.         gen `var1'_yn=1 if `var1'~=. & `var1'< ts_53_0_0
+{txt}  3{com}.     replace `var1'_yn=0 if `var1'_yn~=1
+{txt}  4{com}. {c )-}
+{txt}(502,369 missing values generated)
+(502,369 real changes made)
+(502,241 missing values generated)
+(502,241 real changes made)
+(501,741 missing values generated)
+(501,741 real changes made)
+(502,198 missing values generated)
+(502,198 real changes made)
+(498,469 missing values generated)
+(498,469 real changes made)
+(502,140 missing values generated)
+(502,140 real changes made)
+(502,301 missing values generated)
+(502,301 real changes made)
+(502,035 missing values generated)
+(502,035 real changes made)
+(500,536 missing values generated)
+(500,536 real changes made)
+(498,364 missing values generated)
+(498,364 real changes made)
+(499,736 missing values generated)
+(499,736 real changes made)
+(501,877 missing values generated)
+(501,877 real changes made)
+(502,380 missing values generated)
+(502,380 real changes made)
+(502,258 missing values generated)
+(502,258 real changes made)
+(502,376 missing values generated)
+(502,376 real changes made)
+(502,384 missing values generated)
+(502,384 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,359 missing values generated)
+(502,359 real changes made)
+(502,389 missing values generated)
+(502,389 real changes made)
+(502,387 missing values generated)
+(502,387 real changes made)
+(502,381 missing values generated)
+(502,381 real changes made)
+(502,374 missing values generated)
+(502,374 real changes made)
+(502,366 missing values generated)
+(502,366 real changes made)
+(502,387 missing values generated)
+(502,387 real changes made)
+(502,362 missing values generated)
+(502,362 real changes made)
+(502,386 missing values generated)
+(502,386 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,280 missing values generated)
+(502,280 real changes made)
+(502,256 missing values generated)
+(502,256 real changes made)
+(500,066 missing values generated)
+(500,066 real changes made)
+(500,873 missing values generated)
+(500,873 real changes made)
+(502,315 missing values generated)
+(502,315 real changes made)
+(502,268 missing values generated)
+(502,268 real changes made)
+(500,915 missing values generated)
+(500,915 real changes made)
+(502,260 missing values generated)
+(502,260 real changes made)
+(502,387 missing values generated)
+(502,387 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,206 missing values generated)
+(502,206 real changes made)
+(502,285 missing values generated)
+(502,285 real changes made)
+(501,606 missing values generated)
+(501,606 real changes made)
+(502,381 missing values generated)
+(502,381 real changes made)
+(502,373 missing values generated)
+(502,373 real changes made)
+(502,372 missing values generated)
+(502,372 real changes made)
+(502,364 missing values generated)
+(502,364 real changes made)
+(502,110 missing values generated)
+(502,110 real changes made)
+(502,386 missing values generated)
+(502,386 real changes made)
+(502,307 missing values generated)
+(502,307 real changes made)
+(502,387 missing values generated)
+(502,387 real changes made)
+(502,304 missing values generated)
+(502,304 real changes made)
+(502,030 missing values generated)
+(502,030 real changes made)
+(500,728 missing values generated)
+(500,728 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,372 missing values generated)
+(502,372 real changes made)
+(502,387 missing values generated)
+(502,387 real changes made)
+(502,387 missing values generated)
+(502,387 real changes made)
+(502,240 missing values generated)
+(502,240 real changes made)
+(502,362 missing values generated)
+(502,362 real changes made)
+(502,356 missing values generated)
+(502,356 real changes made)
+(502,357 missing values generated)
+(502,357 real changes made)
+(502,386 missing values generated)
+(502,386 real changes made)
+(502,379 missing values generated)
+(502,379 real changes made)
+(502,380 missing values generated)
+(502,380 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(501,890 missing values generated)
+(501,890 real changes made)
+(502,383 missing values generated)
+(502,383 real changes made)
+(502,389 missing values generated)
+(502,389 real changes made)
+(502,363 missing values generated)
+(502,363 real changes made)
+(502,385 missing values generated)
+(502,385 real changes made)
+(502,381 missing values generated)
+(502,381 real changes made)
+(502,351 missing values generated)
+(502,351 real changes made)
+(501,964 missing values generated)
+(501,964 real changes made)
+(502,367 missing values generated)
+(502,367 real changes made)
+(502,359 missing values generated)
+(502,359 real changes made)
+(502,353 missing values generated)
+(502,353 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,383 missing values generated)
+(502,383 real changes made)
+(502,382 missing values generated)
+(502,382 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,324 missing values generated)
+(502,324 real changes made)
+(502,366 missing values generated)
+(502,366 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(499,088 missing values generated)
+(499,088 real changes made)
+(487,359 missing values generated)
+(487,359 real changes made)
+(493,649 missing values generated)
+(493,649 real changes made)
+(502,376 missing values generated)
+(502,376 real changes made)
+(491,542 missing values generated)
+(491,542 real changes made)
+(498,258 missing values generated)
+(498,258 real changes made)
+(490,607 missing values generated)
+(490,607 real changes made)
+(501,597 missing values generated)
+(501,597 real changes made)
+(502,370 missing values generated)
+(502,370 real changes made)
+(501,354 missing values generated)
+(501,354 real changes made)
+(502,067 missing values generated)
+(502,067 real changes made)
+(502,098 missing values generated)
+(502,098 real changes made)
+(502,025 missing values generated)
+(502,025 real changes made)
+(501,086 missing values generated)
+(501,086 real changes made)
+(502,328 missing values generated)
+(502,328 real changes made)
+(502,374 missing values generated)
+(502,374 real changes made)
+(502,380 missing values generated)
+(502,380 real changes made)
+(502,355 missing values generated)
+(502,355 real changes made)
+(501,902 missing values generated)
+(501,902 real changes made)
+(502,314 missing values generated)
+(502,314 real changes made)
+(495,392 missing values generated)
+(495,392 real changes made)
+(499,042 missing values generated)
+(499,042 real changes made)
+(502,270 missing values generated)
+(502,270 real changes made)
+(502,209 missing values generated)
+(502,209 real changes made)
+(496,280 missing values generated)
+(496,280 real changes made)
+(481,408 missing values generated)
+(481,408 real changes made)
+(499,356 missing values generated)
+(499,356 real changes made)
+(497,852 missing values generated)
+(497,852 real changes made)
+(502,389 missing values generated)
+(502,389 real changes made)
+(502,384 missing values generated)
+(502,384 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,389 missing values generated)
+(502,389 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,284 missing values generated)
+(502,284 real changes made)
+(502,385 missing values generated)
+(502,385 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,385 missing values generated)
+(502,385 real changes made)
+(502,373 missing values generated)
+(502,373 real changes made)
+(502,319 missing values generated)
+(502,319 real changes made)
+(502,275 missing values generated)
+(502,275 real changes made)
+(502,352 missing values generated)
+(502,352 real changes made)
+(502,385 missing values generated)
+(502,385 real changes made)
+(502,386 missing values generated)
+(502,386 real changes made)
+(501,521 missing values generated)
+(501,521 real changes made)
+(502,382 missing values generated)
+(502,382 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,346 missing values generated)
+(502,346 real changes made)
+(502,375 missing values generated)
+(502,375 real changes made)
+(502,385 missing values generated)
+(502,385 real changes made)
+(502,314 missing values generated)
+(502,314 real changes made)
+(502,385 missing values generated)
+(502,385 real changes made)
+(502,382 missing values generated)
+(502,382 real changes made)
+(502,380 missing values generated)
+(502,380 real changes made)
+(502,385 missing values generated)
+(502,385 real changes made)
+(502,379 missing values generated)
+(502,379 real changes made)
+(502,377 missing values generated)
+(502,377 real changes made)
+(502,386 missing values generated)
+(502,386 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,364 missing values generated)
+(502,364 real changes made)
+(502,382 missing values generated)
+(502,382 real changes made)
+(502,383 missing values generated)
+(502,383 real changes made)
+(502,387 missing values generated)
+(502,387 real changes made)
+(501,873 missing values generated)
+(501,873 real changes made)
+(502,376 missing values generated)
+(502,376 real changes made)
+(502,345 missing values generated)
+(502,345 real changes made)
+(502,319 missing values generated)
+(502,319 real changes made)
+(502,132 missing values generated)
+(502,132 real changes made)
+(500,558 missing values generated)
+(500,558 real changes made)
+(502,386 missing values generated)
+(502,386 real changes made)
+(502,228 missing values generated)
+(502,228 real changes made)
+(502,388 missing values generated)
+(502,388 real changes made)
+(502,370 missing values generated)
+(502,370 real changes made)
+(502,287 missing values generated)
+(502,287 real changes made)
+(502,369 missing values generated)
+(502,369 real changes made)
+(499,879 missing values generated)
+(499,879 real changes made)
+(497,153 missing values generated)
+(497,153 real changes made)
+(501,988 missing values generated)
+(501,988 real changes made)
+(500,890 missing values generated)
+(500,890 real changes made)
+(501,982 missing values generated)
+(501,982 real changes made)
+(502,288 missing values generated)
+(502,288 real changes made)
+(502,359 missing values generated)
+(502,359 real changes made)
+(502,328 missing values generated)
+(502,328 real changes made)
+(500,128 missing values generated)
+(500,128 real changes made)
+(501,892 missing values generated)
+(501,892 real changes made)
+(502,303 missing values generated)
+(502,303 real changes made)
+(498,791 missing values generated)
+(498,791 real changes made)
+(484,214 missing values generated)
+(484,214 real changes made)
+(484,488 missing values generated)
+(484,488 real changes made)
+(486,872 missing values generated)
+(486,872 real changes made)
+(499,225 missing values generated)
+(499,225 real changes made)
+(502,314 missing values generated)
+(502,314 real changes made)
+(470,440 missing values generated)
+(470,440 real changes made)
+(502,389 missing values generated)
+(502,389 real changes made)
+(502,338 missing values generated)
+(502,338 real changes made)
+(494,445 missing values generated)
+(494,445 real changes made)
+(502,289 missing values generated)
+(502,289 real changes made)
+(501,843 missing values generated)
+(501,843 real changes made)
+(502,355 missing values generated)
+(502,355 real changes made)
+(501,955 missing values generated)
+(501,955 real changes made)
+(502,339 missing values generated)
+(502,339 real changes made)
+(502,327 missing values generated)
+(502,327 real changes made)
+(490,870 missing values generated)
+(490,870 real changes made)
+(498,741 missing values generated)
+(498,741 real changes made)
+(502,334 missing values generated)
+(502,334 real changes made)
+(470,913 missing values generated)
+(470,913 real changes made)
+(502,380 missing values generated)
+(502,380 real changes made)
+(501,443 missing values generated)
+(501,443 real changes made)
+(495,364 missing values generated)
+(495,364 real changes made)
+(488,370 missing values generated)
+(488,370 real changes made)
+(501,748 missing values generated)
+(501,748 real changes made)
+(501,155 missing values generated)
+(501,155 real changes made)
+(494,716 missing values generated)
+(494,716 real changes made)
+(502,072 missing values generated)
+(502,072 real changes made)
+(502,365 missing values generated)
+(502,365 real changes made)
+(491,256 missing values generated)
+(491,256 real changes made)
+(474,321 missing values generated)
+(474,321 real changes made)
+(500,197 missing values generated)
+(500,197 real changes made)
+(500,838 missing values generated)
+(500,838 real changes made)
+(502,001 missing values generated)
+(502,001 real changes made)
+(500,672 missing values generated)
+(500,672 real changes made)
+
+{com}. 
+. 
+. tab1 ts_13*yn 
+
+{res}-> tabulation of ts_130000_0_0_yn  
+
+{txt}ts_130000_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,369      100.00      100.00
+{txt}          1 {c |}{res}         20        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130002_0_0_yn  
+
+{txt}ts_130002_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,241       99.97       99.97
+{txt}          1 {c |}{res}        148        0.03      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130004_0_0_yn  
+
+{txt}ts_130004_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,741       99.87       99.87
+{txt}          1 {c |}{res}        648        0.13      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130006_0_0_yn  
+
+{txt}ts_130006_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,198       99.96       99.96
+{txt}          1 {c |}{res}        191        0.04      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130008_0_0_yn  
+
+{txt}ts_130008_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    498,469       99.22       99.22
+{txt}          1 {c |}{res}      3,920        0.78      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130010_0_0_yn  
+
+{txt}ts_130010_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,140       99.95       99.95
+{txt}          1 {c |}{res}        249        0.05      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130012_0_0_yn  
+
+{txt}ts_130012_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,301       99.98       99.98
+{txt}          1 {c |}{res}         88        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130014_0_0_yn  
+
+{txt}ts_130014_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,035       99.93       99.93
+{txt}          1 {c |}{res}        354        0.07      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130016_0_0_yn  
+
+{txt}ts_130016_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,536       99.63       99.63
+{txt}          1 {c |}{res}      1,853        0.37      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130018_0_0_yn  
+
+{txt}ts_130018_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    498,364       99.20       99.20
+{txt}          1 {c |}{res}      4,025        0.80      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130020_0_0_yn  
+
+{txt}ts_130020_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    499,736       99.47       99.47
+{txt}          1 {c |}{res}      2,653        0.53      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130022_0_0_yn  
+
+{txt}ts_130022_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,877       99.90       99.90
+{txt}          1 {c |}{res}        512        0.10      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130024_0_0_yn  
+
+{txt}ts_130024_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,380      100.00      100.00
+{txt}          1 {c |}{res}          9        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130026_0_0_yn  
+
+{txt}ts_130026_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,258       99.97       99.97
+{txt}          1 {c |}{res}        131        0.03      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130028_0_0_yn  
+
+{txt}ts_130028_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,376      100.00      100.00
+{txt}          1 {c |}{res}         13        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130030_0_0_yn  
+
+{txt}ts_130030_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,384      100.00      100.00
+{txt}          1 {c |}{res}          5        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130034_0_0_yn  
+
+{txt}ts_130034_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130036_0_0_yn  
+
+{txt}ts_130036_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,359       99.99       99.99
+{txt}          1 {c |}{res}         30        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130038_0_0_yn  
+
+{txt}ts_130038_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,389      100.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130040_0_0_yn  
+
+{txt}ts_130040_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,387      100.00      100.00
+{txt}          1 {c |}{res}          2        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130042_0_0_yn  
+
+{txt}ts_130042_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,381      100.00      100.00
+{txt}          1 {c |}{res}          8        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130044_0_0_yn  
+
+{txt}ts_130044_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,374      100.00      100.00
+{txt}          1 {c |}{res}         15        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130046_0_0_yn  
+
+{txt}ts_130046_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,366      100.00      100.00
+{txt}          1 {c |}{res}         23        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130048_0_0_yn  
+
+{txt}ts_130048_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,387      100.00      100.00
+{txt}          1 {c |}{res}          2        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130050_0_0_yn  
+
+{txt}ts_130050_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,362       99.99       99.99
+{txt}          1 {c |}{res}         27        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130052_0_0_yn  
+
+{txt}ts_130052_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,386      100.00      100.00
+{txt}          1 {c |}{res}          3        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130054_0_0_yn  
+
+{txt}ts_130054_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130058_0_0_yn  
+
+{txt}ts_130058_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,280       99.98       99.98
+{txt}          1 {c |}{res}        109        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130060_0_0_yn  
+
+{txt}ts_130060_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,256       99.97       99.97
+{txt}          1 {c |}{res}        133        0.03      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130062_0_0_yn  
+
+{txt}ts_130062_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,066       99.54       99.54
+{txt}          1 {c |}{res}      2,323        0.46      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130064_0_0_yn  
+
+{txt}ts_130064_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,873       99.70       99.70
+{txt}          1 {c |}{res}      1,516        0.30      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130066_0_0_yn  
+
+{txt}ts_130066_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,315       99.99       99.99
+{txt}          1 {c |}{res}         74        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130068_0_0_yn  
+
+{txt}ts_130068_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,268       99.98       99.98
+{txt}          1 {c |}{res}        121        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130070_0_0_yn  
+
+{txt}ts_130070_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,915       99.71       99.71
+{txt}          1 {c |}{res}      1,474        0.29      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130072_0_0_yn  
+
+{txt}ts_130072_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,260       99.97       99.97
+{txt}          1 {c |}{res}        129        0.03      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130074_0_0_yn  
+
+{txt}ts_130074_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,387      100.00      100.00
+{txt}          1 {c |}{res}          2        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130076_0_0_yn  
+
+{txt}ts_130076_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130078_0_0_yn  
+
+{txt}ts_130078_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,206       99.96       99.96
+{txt}          1 {c |}{res}        183        0.04      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130080_0_0_yn  
+
+{txt}ts_130080_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,285       99.98       99.98
+{txt}          1 {c |}{res}        104        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130082_0_0_yn  
+
+{txt}ts_130082_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,606       99.84       99.84
+{txt}          1 {c |}{res}        783        0.16      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130084_0_0_yn  
+
+{txt}ts_130084_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,381      100.00      100.00
+{txt}          1 {c |}{res}          8        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130086_0_0_yn  
+
+{txt}ts_130086_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,373      100.00      100.00
+{txt}          1 {c |}{res}         16        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130088_0_0_yn  
+
+{txt}ts_130088_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,372      100.00      100.00
+{txt}          1 {c |}{res}         17        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130090_0_0_yn  
+
+{txt}ts_130090_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,364      100.00      100.00
+{txt}          1 {c |}{res}         25        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130092_0_0_yn  
+
+{txt}ts_130092_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,110       99.94       99.94
+{txt}          1 {c |}{res}        279        0.06      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130094_0_0_yn  
+
+{txt}ts_130094_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,386      100.00      100.00
+{txt}          1 {c |}{res}          3        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130096_0_0_yn  
+
+{txt}ts_130096_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,307       99.98       99.98
+{txt}          1 {c |}{res}         82        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130100_0_0_yn  
+
+{txt}ts_130100_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,387      100.00      100.00
+{txt}          1 {c |}{res}          2        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130102_0_0_yn  
+
+{txt}ts_130102_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,304       99.98       99.98
+{txt}          1 {c |}{res}         85        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130104_0_0_yn  
+
+{txt}ts_130104_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,030       99.93       99.93
+{txt}          1 {c |}{res}        359        0.07      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130106_0_0_yn  
+
+{txt}ts_130106_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,728       99.67       99.67
+{txt}          1 {c |}{res}      1,661        0.33      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130108_0_0_yn  
+
+{txt}ts_130108_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130112_0_0_yn  
+
+{txt}ts_130112_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,372      100.00      100.00
+{txt}          1 {c |}{res}         17        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130114_0_0_yn  
+
+{txt}ts_130114_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,387      100.00      100.00
+{txt}          1 {c |}{res}          2        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130116_0_0_yn  
+
+{txt}ts_130116_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,387      100.00      100.00
+{txt}          1 {c |}{res}          2        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130118_0_0_yn  
+
+{txt}ts_130118_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,240       99.97       99.97
+{txt}          1 {c |}{res}        149        0.03      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130120_0_0_yn  
+
+{txt}ts_130120_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,362       99.99       99.99
+{txt}          1 {c |}{res}         27        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130122_0_0_yn  
+
+{txt}ts_130122_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,356       99.99       99.99
+{txt}          1 {c |}{res}         33        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130124_0_0_yn  
+
+{txt}ts_130124_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,357       99.99       99.99
+{txt}          1 {c |}{res}         32        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130126_0_0_yn  
+
+{txt}ts_130126_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,386      100.00      100.00
+{txt}          1 {c |}{res}          3        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130128_0_0_yn  
+
+{txt}ts_130128_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,379      100.00      100.00
+{txt}          1 {c |}{res}         10        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130130_0_0_yn  
+
+{txt}ts_130130_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,380      100.00      100.00
+{txt}          1 {c |}{res}          9        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130132_0_0_yn  
+
+{txt}ts_130132_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130134_0_0_yn  
+
+{txt}ts_130134_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,890       99.90       99.90
+{txt}          1 {c |}{res}        499        0.10      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130136_0_0_yn  
+
+{txt}ts_130136_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,383      100.00      100.00
+{txt}          1 {c |}{res}          6        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130138_0_0_yn  
+
+{txt}ts_130138_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,389      100.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130140_0_0_yn  
+
+{txt}ts_130140_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,363       99.99       99.99
+{txt}          1 {c |}{res}         26        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130142_0_0_yn  
+
+{txt}ts_130142_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,385      100.00      100.00
+{txt}          1 {c |}{res}          4        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130144_0_0_yn  
+
+{txt}ts_130144_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,381      100.00      100.00
+{txt}          1 {c |}{res}          8        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130146_0_0_yn  
+
+{txt}ts_130146_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,351       99.99       99.99
+{txt}          1 {c |}{res}         38        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130148_0_0_yn  
+
+{txt}ts_130148_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,964       99.92       99.92
+{txt}          1 {c |}{res}        425        0.08      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130150_0_0_yn  
+
+{txt}ts_130150_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,367      100.00      100.00
+{txt}          1 {c |}{res}         22        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130152_0_0_yn  
+
+{txt}ts_130152_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,359       99.99       99.99
+{txt}          1 {c |}{res}         30        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130154_0_0_yn  
+
+{txt}ts_130154_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,353       99.99       99.99
+{txt}          1 {c |}{res}         36        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130156_0_0_yn  
+
+{txt}ts_130156_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130158_0_0_yn  
+
+{txt}ts_130158_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,383      100.00      100.00
+{txt}          1 {c |}{res}          6        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130160_0_0_yn  
+
+{txt}ts_130160_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,382      100.00      100.00
+{txt}          1 {c |}{res}          7        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130162_0_0_yn  
+
+{txt}ts_130162_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130164_0_0_yn  
+
+{txt}ts_130164_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,324       99.99       99.99
+{txt}          1 {c |}{res}         65        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130168_0_0_yn  
+
+{txt}ts_130168_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,366      100.00      100.00
+{txt}          1 {c |}{res}         23        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130170_0_0_yn  
+
+{txt}ts_130170_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130174_0_0_yn  
+
+{txt}ts_130174_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    499,088       99.34       99.34
+{txt}          1 {c |}{res}      3,301        0.66      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130176_0_0_yn  
+
+{txt}ts_130176_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    487,359       97.01       97.01
+{txt}          1 {c |}{res}     15,030        2.99      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130178_0_0_yn  
+
+{txt}ts_130178_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    493,649       98.26       98.26
+{txt}          1 {c |}{res}      8,740        1.74      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130180_0_0_yn  
+
+{txt}ts_130180_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,376      100.00      100.00
+{txt}          1 {c |}{res}         13        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130184_0_0_yn  
+
+{txt}ts_130184_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    491,542       97.84       97.84
+{txt}          1 {c |}{res}     10,847        2.16      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130186_0_0_yn  
+
+{txt}ts_130186_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    498,258       99.18       99.18
+{txt}          1 {c |}{res}      4,131        0.82      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130188_0_0_yn  
+
+{txt}ts_130188_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    490,607       97.65       97.65
+{txt}          1 {c |}{res}     11,782        2.35      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130190_0_0_yn  
+
+{txt}ts_130190_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,597       99.84       99.84
+{txt}          1 {c |}{res}        792        0.16      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130192_0_0_yn  
+
+{txt}ts_130192_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,370      100.00      100.00
+{txt}          1 {c |}{res}         19        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130194_0_0_yn  
+
+{txt}ts_130194_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,354       99.79       99.79
+{txt}          1 {c |}{res}      1,035        0.21      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130196_0_0_yn  
+
+{txt}ts_130196_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,067       99.94       99.94
+{txt}          1 {c |}{res}        322        0.06      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130198_0_0_yn  
+
+{txt}ts_130198_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,098       99.94       99.94
+{txt}          1 {c |}{res}        291        0.06      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130200_0_0_yn  
+
+{txt}ts_130200_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,025       99.93       99.93
+{txt}          1 {c |}{res}        364        0.07      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130202_0_0_yn  
+
+{txt}ts_130202_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,086       99.74       99.74
+{txt}          1 {c |}{res}      1,303        0.26      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130204_0_0_yn  
+
+{txt}ts_130204_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,328       99.99       99.99
+{txt}          1 {c |}{res}         61        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130206_0_0_yn  
+
+{txt}ts_130206_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,374      100.00      100.00
+{txt}          1 {c |}{res}         15        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130208_0_0_yn  
+
+{txt}ts_130208_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,380      100.00      100.00
+{txt}          1 {c |}{res}          9        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130210_0_0_yn  
+
+{txt}ts_130210_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,355       99.99       99.99
+{txt}          1 {c |}{res}         34        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130212_0_0_yn  
+
+{txt}ts_130212_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,902       99.90       99.90
+{txt}          1 {c |}{res}        487        0.10      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130214_0_0_yn  
+
+{txt}ts_130214_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,314       99.99       99.99
+{txt}          1 {c |}{res}         75        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130216_0_0_yn  
+
+{txt}ts_130216_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    495,392       98.61       98.61
+{txt}          1 {c |}{res}      6,997        1.39      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130218_0_0_yn  
+
+{txt}ts_130218_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    499,042       99.33       99.33
+{txt}          1 {c |}{res}      3,347        0.67      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130220_0_0_yn  
+
+{txt}ts_130220_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,270       99.98       99.98
+{txt}          1 {c |}{res}        119        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130222_0_0_yn  
+
+{txt}ts_130222_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,209       99.96       99.96
+{txt}          1 {c |}{res}        180        0.04      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130224_0_0_yn  
+
+{txt}ts_130224_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    496,280       98.78       98.78
+{txt}          1 {c |}{res}      6,109        1.22      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130226_0_0_yn  
+
+{txt}ts_130226_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    481,408       95.82       95.82
+{txt}          1 {c |}{res}     20,981        4.18      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130228_0_0_yn  
+
+{txt}ts_130228_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    499,356       99.40       99.40
+{txt}          1 {c |}{res}      3,033        0.60      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130230_0_0_yn  
+
+{txt}ts_130230_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    497,852       99.10       99.10
+{txt}          1 {c |}{res}      4,537        0.90      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130232_0_0_yn  
+
+{txt}ts_130232_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,389      100.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130234_0_0_yn  
+
+{txt}ts_130234_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,384      100.00      100.00
+{txt}          1 {c |}{res}          5        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130236_0_0_yn  
+
+{txt}ts_130236_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130240_0_0_yn  
+
+{txt}ts_130240_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,389      100.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130242_0_0_yn  
+
+{txt}ts_130242_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130244_0_0_yn  
+
+{txt}ts_130244_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,284       99.98       99.98
+{txt}          1 {c |}{res}        105        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130246_0_0_yn  
+
+{txt}ts_130246_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,385      100.00      100.00
+{txt}          1 {c |}{res}          4        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130248_0_0_yn  
+
+{txt}ts_130248_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130250_0_0_yn  
+
+{txt}ts_130250_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,385      100.00      100.00
+{txt}          1 {c |}{res}          4        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130252_0_0_yn  
+
+{txt}ts_130252_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,373      100.00      100.00
+{txt}          1 {c |}{res}         16        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130254_0_0_yn  
+
+{txt}ts_130254_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,319       99.99       99.99
+{txt}          1 {c |}{res}         70        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130256_0_0_yn  
+
+{txt}ts_130256_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,275       99.98       99.98
+{txt}          1 {c |}{res}        114        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130258_0_0_yn  
+
+{txt}ts_130258_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,352       99.99       99.99
+{txt}          1 {c |}{res}         37        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130260_0_0_yn  
+
+{txt}ts_130260_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,385      100.00      100.00
+{txt}          1 {c |}{res}          4        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130262_0_0_yn  
+
+{txt}ts_130262_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,386      100.00      100.00
+{txt}          1 {c |}{res}          3        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130264_0_0_yn  
+
+{txt}ts_130264_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,521       99.83       99.83
+{txt}          1 {c |}{res}        868        0.17      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130266_0_0_yn  
+
+{txt}ts_130266_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,382      100.00      100.00
+{txt}          1 {c |}{res}          7        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130270_0_0_yn  
+
+{txt}ts_130270_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130272_0_0_yn  
+
+{txt}ts_130272_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,346       99.99       99.99
+{txt}          1 {c |}{res}         43        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130274_0_0_yn  
+
+{txt}ts_130274_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,375      100.00      100.00
+{txt}          1 {c |}{res}         14        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130276_0_0_yn  
+
+{txt}ts_130276_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,385      100.00      100.00
+{txt}          1 {c |}{res}          4        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130280_0_0_yn  
+
+{txt}ts_130280_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,314       99.99       99.99
+{txt}          1 {c |}{res}         75        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130282_0_0_yn  
+
+{txt}ts_130282_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,385      100.00      100.00
+{txt}          1 {c |}{res}          4        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130284_0_0_yn  
+
+{txt}ts_130284_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,382      100.00      100.00
+{txt}          1 {c |}{res}          7        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130286_0_0_yn  
+
+{txt}ts_130286_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,380      100.00      100.00
+{txt}          1 {c |}{res}          9        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130288_0_0_yn  
+
+{txt}ts_130288_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,385      100.00      100.00
+{txt}          1 {c |}{res}          4        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130292_0_0_yn  
+
+{txt}ts_130292_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,379      100.00      100.00
+{txt}          1 {c |}{res}         10        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130296_0_0_yn  
+
+{txt}ts_130296_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,377      100.00      100.00
+{txt}          1 {c |}{res}         12        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130298_0_0_yn  
+
+{txt}ts_130298_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,386      100.00      100.00
+{txt}          1 {c |}{res}          3        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130300_0_0_yn  
+
+{txt}ts_130300_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130302_0_0_yn  
+
+{txt}ts_130302_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,364      100.00      100.00
+{txt}          1 {c |}{res}         25        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130304_0_0_yn  
+
+{txt}ts_130304_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,382      100.00      100.00
+{txt}          1 {c |}{res}          7        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130306_0_0_yn  
+
+{txt}ts_130306_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,383      100.00      100.00
+{txt}          1 {c |}{res}          6        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130308_0_0_yn  
+
+{txt}ts_130308_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,387      100.00      100.00
+{txt}          1 {c |}{res}          2        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130310_0_0_yn  
+
+{txt}ts_130310_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,873       99.90       99.90
+{txt}          1 {c |}{res}        516        0.10      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130312_0_0_yn  
+
+{txt}ts_130312_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,376      100.00      100.00
+{txt}          1 {c |}{res}         13        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130314_0_0_yn  
+
+{txt}ts_130314_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,345       99.99       99.99
+{txt}          1 {c |}{res}         44        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130316_0_0_yn  
+
+{txt}ts_130316_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,319       99.99       99.99
+{txt}          1 {c |}{res}         70        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130318_0_0_yn  
+
+{txt}ts_130318_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,132       99.95       99.95
+{txt}          1 {c |}{res}        257        0.05      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130320_0_0_yn  
+
+{txt}ts_130320_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,558       99.64       99.64
+{txt}          1 {c |}{res}      1,831        0.36      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130322_0_0_yn  
+
+{txt}ts_130322_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,386      100.00      100.00
+{txt}          1 {c |}{res}          3        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130324_0_0_yn  
+
+{txt}ts_130324_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,228       99.97       99.97
+{txt}          1 {c |}{res}        161        0.03      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130326_0_0_yn  
+
+{txt}ts_130326_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,388      100.00      100.00
+{txt}          1 {c |}{res}          1        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130328_0_0_yn  
+
+{txt}ts_130328_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,370      100.00      100.00
+{txt}          1 {c |}{res}         19        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130330_0_0_yn  
+
+{txt}ts_130330_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,287       99.98       99.98
+{txt}          1 {c |}{res}        102        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130334_0_0_yn  
+
+{txt}ts_130334_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,369      100.00      100.00
+{txt}          1 {c |}{res}         20        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130336_0_0_yn  
+
+{txt}ts_130336_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    499,879       99.50       99.50
+{txt}          1 {c |}{res}      2,510        0.50      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130338_0_0_yn  
+
+{txt}ts_130338_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    497,153       98.96       98.96
+{txt}          1 {c |}{res}      5,236        1.04      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130340_0_0_yn  
+
+{txt}ts_130340_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,988       99.92       99.92
+{txt}          1 {c |}{res}        401        0.08      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130342_0_0_yn  
+
+{txt}ts_130342_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,890       99.70       99.70
+{txt}          1 {c |}{res}      1,499        0.30      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130344_0_0_yn  
+
+{txt}ts_130344_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,982       99.92       99.92
+{txt}          1 {c |}{res}        407        0.08      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130992_0_0_yn  
+
+{txt}ts_130992_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,288       99.98       99.98
+{txt}          1 {c |}{res}        101        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130994_0_0_yn  
+
+{txt}ts_130994_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,359       99.99       99.99
+{txt}          1 {c |}{res}         30        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130996_0_0_yn  
+
+{txt}ts_130996_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,328       99.99       99.99
+{txt}          1 {c |}{res}         61        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_130998_0_0_yn  
+
+{txt}ts_130998_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,128       99.55       99.55
+{txt}          1 {c |}{res}      2,261        0.45      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131000_0_0_yn  
+
+{txt}ts_131000_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,892       99.90       99.90
+{txt}          1 {c |}{res}        497        0.10      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131002_0_0_yn  
+
+{txt}ts_131002_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,303       99.98       99.98
+{txt}          1 {c |}{res}         86        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131424_0_0_yn  
+
+{txt}ts_131424_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    498,791       99.28       99.28
+{txt}          1 {c |}{res}      3,598        0.72      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131426_0_0_yn  
+
+{txt}ts_131426_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    484,214       96.38       96.38
+{txt}          1 {c |}{res}     18,175        3.62      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131428_0_0_yn  
+
+{txt}ts_131428_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    484,488       96.44       96.44
+{txt}          1 {c |}{res}     17,901        3.56      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131430_0_0_yn  
+
+{txt}ts_131430_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    486,872       96.91       96.91
+{txt}          1 {c |}{res}     15,517        3.09      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131432_0_0_yn  
+
+{txt}ts_131432_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    499,225       99.37       99.37
+{txt}          1 {c |}{res}      3,164        0.63      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131434_0_0_yn  
+
+{txt}ts_131434_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,314       99.99       99.99
+{txt}          1 {c |}{res}         75        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131436_0_0_yn  
+
+{txt}ts_131436_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    470,440       93.64       93.64
+{txt}          1 {c |}{res}     31,949        6.36      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131438_0_0_yn  
+
+{txt}ts_131438_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,389      100.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131440_0_0_yn  
+
+{txt}ts_131440_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,338       99.99       99.99
+{txt}          1 {c |}{res}         51        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131442_0_0_yn  
+
+{txt}ts_131442_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    494,445       98.42       98.42
+{txt}          1 {c |}{res}      7,944        1.58      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131444_0_0_yn  
+
+{txt}ts_131444_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,289       99.98       99.98
+{txt}          1 {c |}{res}        100        0.02      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131446_0_0_yn  
+
+{txt}ts_131446_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,843       99.89       99.89
+{txt}          1 {c |}{res}        546        0.11      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131448_0_0_yn  
+
+{txt}ts_131448_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,355       99.99       99.99
+{txt}          1 {c |}{res}         34        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131450_0_0_yn  
+
+{txt}ts_131450_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,955       99.91       99.91
+{txt}          1 {c |}{res}        434        0.09      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131452_0_0_yn  
+
+{txt}ts_131452_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,339       99.99       99.99
+{txt}          1 {c |}{res}         50        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131454_0_0_yn  
+
+{txt}ts_131454_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,327       99.99       99.99
+{txt}          1 {c |}{res}         62        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131456_0_0_yn  
+
+{txt}ts_131456_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    490,870       97.71       97.71
+{txt}          1 {c |}{res}     11,519        2.29      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131458_0_0_yn  
+
+{txt}ts_131458_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    498,741       99.27       99.27
+{txt}          1 {c |}{res}      3,648        0.73      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131460_0_0_yn  
+
+{txt}ts_131460_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,334       99.99       99.99
+{txt}          1 {c |}{res}         55        0.01      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131462_0_0_yn  
+
+{txt}ts_131462_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    470,913       93.73       93.73
+{txt}          1 {c |}{res}     31,476        6.27      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131696_0_0_yn  
+
+{txt}ts_131696_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,380      100.00      100.00
+{txt}          1 {c |}{res}          9        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131698_0_0_yn  
+
+{txt}ts_131698_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,443       99.81       99.81
+{txt}          1 {c |}{res}        946        0.19      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131700_0_0_yn  
+
+{txt}ts_131700_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    495,364       98.60       98.60
+{txt}          1 {c |}{res}      7,025        1.40      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131702_0_0_yn  
+
+{txt}ts_131702_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    488,370       97.21       97.21
+{txt}          1 {c |}{res}     14,019        2.79      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131704_0_0_yn  
+
+{txt}ts_131704_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,748       99.87       99.87
+{txt}          1 {c |}{res}        641        0.13      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131706_0_0_yn  
+
+{txt}ts_131706_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    501,155       99.75       99.75
+{txt}          1 {c |}{res}      1,234        0.25      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131708_0_0_yn  
+
+{txt}ts_131708_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    494,716       98.47       98.47
+{txt}          1 {c |}{res}      7,673        1.53      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131840_0_0_yn  
+
+{txt}ts_131840_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,072       99.94       99.94
+{txt}          1 {c |}{res}        317        0.06      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_131842_0_0_yn  
+
+{txt}ts_131842_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,365      100.00      100.00
+{txt}          1 {c |}{res}         24        0.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_132054_0_0_yn  
+
+{txt}ts_132054_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    491,256       97.78       97.78
+{txt}          1 {c |}{res}     11,133        2.22      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_132070_0_0_yn  
+
+{txt}ts_132070_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    474,321       94.41       94.41
+{txt}          1 {c |}{res}     28,068        5.59      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_132074_0_0_yn  
+
+{txt}ts_132074_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,197       99.56       99.56
+{txt}          1 {c |}{res}      2,192        0.44      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_132098_0_0_yn  
+
+{txt}ts_132098_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,838       99.69       99.69
+{txt}          1 {c |}{res}      1,551        0.31      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_132108_0_0_yn  
+
+{txt}ts_132108_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    502,001       99.92       99.92
+{txt}          1 {c |}{res}        388        0.08      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+
+-> tabulation of ts_132110_0_0_yn  
+
+{txt}ts_132110_0 {c |}
+      _0_yn {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    500,672       99.66       99.66
+{txt}          1 {c |}{res}      1,717        0.34      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+{txt}
+{com}. 
+. 
+. 
+. capture drop ts_13*time 
+{txt}
+{com}. foreach var2 of varlist ts_13*_0_0 {c -(}
+{txt}  2{com}.         gen `var2'_time=`var2'-ts_53_0_0 if `var2'~=. & `var2'< ts_53_0_0
+{txt}  3{com}.     replace `var2'_time=. if `var2'>= ts_53_0_0
+{txt}  4{com}. {c )-}
+{txt}(502,369 missing values generated)
+(0 real changes made)
+(502,241 missing values generated)
+(0 real changes made)
+(501,741 missing values generated)
+(0 real changes made)
+(502,198 missing values generated)
+(0 real changes made)
+(498,469 missing values generated)
+(0 real changes made)
+(502,140 missing values generated)
+(0 real changes made)
+(502,301 missing values generated)
+(0 real changes made)
+(502,035 missing values generated)
+(0 real changes made)
+(500,536 missing values generated)
+(0 real changes made)
+(498,364 missing values generated)
+(0 real changes made)
+(499,736 missing values generated)
+(0 real changes made)
+(501,877 missing values generated)
+(0 real changes made)
+(502,380 missing values generated)
+(0 real changes made)
+(502,258 missing values generated)
+(0 real changes made)
+(502,376 missing values generated)
+(0 real changes made)
+(502,384 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,359 missing values generated)
+(0 real changes made)
+(502,389 missing values generated)
+(0 real changes made)
+(502,387 missing values generated)
+(0 real changes made)
+(502,381 missing values generated)
+(0 real changes made)
+(502,374 missing values generated)
+(0 real changes made)
+(502,366 missing values generated)
+(0 real changes made)
+(502,387 missing values generated)
+(0 real changes made)
+(502,362 missing values generated)
+(0 real changes made)
+(502,386 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,280 missing values generated)
+(0 real changes made)
+(502,256 missing values generated)
+(0 real changes made)
+(500,066 missing values generated)
+(0 real changes made)
+(500,873 missing values generated)
+(0 real changes made)
+(502,315 missing values generated)
+(0 real changes made)
+(502,268 missing values generated)
+(0 real changes made)
+(500,915 missing values generated)
+(0 real changes made)
+(502,260 missing values generated)
+(0 real changes made)
+(502,387 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,206 missing values generated)
+(0 real changes made)
+(502,285 missing values generated)
+(0 real changes made)
+(501,606 missing values generated)
+(0 real changes made)
+(502,381 missing values generated)
+(0 real changes made)
+(502,373 missing values generated)
+(0 real changes made)
+(502,372 missing values generated)
+(0 real changes made)
+(502,364 missing values generated)
+(0 real changes made)
+(502,110 missing values generated)
+(0 real changes made)
+(502,386 missing values generated)
+(0 real changes made)
+(502,307 missing values generated)
+(0 real changes made)
+(502,387 missing values generated)
+(0 real changes made)
+(502,304 missing values generated)
+(0 real changes made)
+(502,030 missing values generated)
+(0 real changes made)
+(500,728 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,372 missing values generated)
+(0 real changes made)
+(502,387 missing values generated)
+(0 real changes made)
+(502,387 missing values generated)
+(0 real changes made)
+(502,240 missing values generated)
+(0 real changes made)
+(502,362 missing values generated)
+(0 real changes made)
+(502,356 missing values generated)
+(0 real changes made)
+(502,357 missing values generated)
+(0 real changes made)
+(502,386 missing values generated)
+(0 real changes made)
+(502,379 missing values generated)
+(0 real changes made)
+(502,380 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(501,890 missing values generated)
+(0 real changes made)
+(502,383 missing values generated)
+(0 real changes made)
+(502,389 missing values generated)
+(0 real changes made)
+(502,363 missing values generated)
+(0 real changes made)
+(502,385 missing values generated)
+(0 real changes made)
+(502,381 missing values generated)
+(0 real changes made)
+(502,351 missing values generated)
+(0 real changes made)
+(501,964 missing values generated)
+(0 real changes made)
+(502,367 missing values generated)
+(0 real changes made)
+(502,359 missing values generated)
+(0 real changes made)
+(502,353 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,383 missing values generated)
+(0 real changes made)
+(502,382 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,324 missing values generated)
+(0 real changes made)
+(502,366 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(499,088 missing values generated)
+(0 real changes made)
+(487,359 missing values generated)
+(0 real changes made)
+(493,649 missing values generated)
+(0 real changes made)
+(502,376 missing values generated)
+(0 real changes made)
+(491,542 missing values generated)
+(0 real changes made)
+(498,258 missing values generated)
+(0 real changes made)
+(490,607 missing values generated)
+(0 real changes made)
+(501,597 missing values generated)
+(0 real changes made)
+(502,370 missing values generated)
+(0 real changes made)
+(501,354 missing values generated)
+(0 real changes made)
+(502,067 missing values generated)
+(0 real changes made)
+(502,098 missing values generated)
+(0 real changes made)
+(502,025 missing values generated)
+(0 real changes made)
+(501,086 missing values generated)
+(0 real changes made)
+(502,328 missing values generated)
+(0 real changes made)
+(502,374 missing values generated)
+(0 real changes made)
+(502,380 missing values generated)
+(0 real changes made)
+(502,355 missing values generated)
+(0 real changes made)
+(501,902 missing values generated)
+(0 real changes made)
+(502,314 missing values generated)
+(0 real changes made)
+(495,392 missing values generated)
+(0 real changes made)
+(499,042 missing values generated)
+(0 real changes made)
+(502,270 missing values generated)
+(0 real changes made)
+(502,209 missing values generated)
+(0 real changes made)
+(496,280 missing values generated)
+(0 real changes made)
+(481,408 missing values generated)
+(0 real changes made)
+(499,356 missing values generated)
+(0 real changes made)
+(497,852 missing values generated)
+(0 real changes made)
+(502,389 missing values generated)
+(0 real changes made)
+(502,384 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,389 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,284 missing values generated)
+(0 real changes made)
+(502,385 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,385 missing values generated)
+(0 real changes made)
+(502,373 missing values generated)
+(0 real changes made)
+(502,319 missing values generated)
+(0 real changes made)
+(502,275 missing values generated)
+(0 real changes made)
+(502,352 missing values generated)
+(0 real changes made)
+(502,385 missing values generated)
+(0 real changes made)
+(502,386 missing values generated)
+(0 real changes made)
+(501,521 missing values generated)
+(0 real changes made)
+(502,382 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,346 missing values generated)
+(0 real changes made)
+(502,375 missing values generated)
+(0 real changes made)
+(502,385 missing values generated)
+(0 real changes made)
+(502,314 missing values generated)
+(0 real changes made)
+(502,385 missing values generated)
+(0 real changes made)
+(502,382 missing values generated)
+(0 real changes made)
+(502,380 missing values generated)
+(0 real changes made)
+(502,385 missing values generated)
+(0 real changes made)
+(502,379 missing values generated)
+(0 real changes made)
+(502,377 missing values generated)
+(0 real changes made)
+(502,386 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,364 missing values generated)
+(0 real changes made)
+(502,382 missing values generated)
+(0 real changes made)
+(502,383 missing values generated)
+(0 real changes made)
+(502,387 missing values generated)
+(0 real changes made)
+(501,873 missing values generated)
+(0 real changes made)
+(502,376 missing values generated)
+(0 real changes made)
+(502,345 missing values generated)
+(0 real changes made)
+(502,319 missing values generated)
+(0 real changes made)
+(502,132 missing values generated)
+(0 real changes made)
+(500,558 missing values generated)
+(0 real changes made)
+(502,386 missing values generated)
+(0 real changes made)
+(502,228 missing values generated)
+(0 real changes made)
+(502,388 missing values generated)
+(0 real changes made)
+(502,370 missing values generated)
+(0 real changes made)
+(502,287 missing values generated)
+(0 real changes made)
+(502,369 missing values generated)
+(0 real changes made)
+(499,879 missing values generated)
+(0 real changes made)
+(497,153 missing values generated)
+(0 real changes made)
+(501,988 missing values generated)
+(0 real changes made)
+(500,890 missing values generated)
+(0 real changes made)
+(501,982 missing values generated)
+(0 real changes made)
+(502,288 missing values generated)
+(0 real changes made)
+(502,359 missing values generated)
+(0 real changes made)
+(502,328 missing values generated)
+(0 real changes made)
+(500,128 missing values generated)
+(0 real changes made)
+(501,892 missing values generated)
+(0 real changes made)
+(502,303 missing values generated)
+(0 real changes made)
+(498,791 missing values generated)
+(0 real changes made)
+(484,214 missing values generated)
+(0 real changes made)
+(484,488 missing values generated)
+(0 real changes made)
+(486,872 missing values generated)
+(0 real changes made)
+(499,225 missing values generated)
+(0 real changes made)
+(502,314 missing values generated)
+(0 real changes made)
+(470,440 missing values generated)
+(0 real changes made)
+(502,389 missing values generated)
+(0 real changes made)
+(502,338 missing values generated)
+(0 real changes made)
+(494,445 missing values generated)
+(0 real changes made)
+(502,289 missing values generated)
+(0 real changes made)
+(501,843 missing values generated)
+(0 real changes made)
+(502,355 missing values generated)
+(0 real changes made)
+(501,955 missing values generated)
+(0 real changes made)
+(502,339 missing values generated)
+(0 real changes made)
+(502,327 missing values generated)
+(0 real changes made)
+(490,870 missing values generated)
+(0 real changes made)
+(498,741 missing values generated)
+(0 real changes made)
+(502,334 missing values generated)
+(0 real changes made)
+(470,913 missing values generated)
+(0 real changes made)
+(502,380 missing values generated)
+(0 real changes made)
+(501,443 missing values generated)
+(0 real changes made)
+(495,364 missing values generated)
+(0 real changes made)
+(488,370 missing values generated)
+(0 real changes made)
+(501,748 missing values generated)
+(0 real changes made)
+(501,155 missing values generated)
+(0 real changes made)
+(494,716 missing values generated)
+(0 real changes made)
+(502,072 missing values generated)
+(0 real changes made)
+(502,365 missing values generated)
+(0 real changes made)
+(491,256 missing values generated)
+(0 real changes made)
+(474,321 missing values generated)
+(0 real changes made)
+(500,197 missing values generated)
+(0 real changes made)
+(500,838 missing values generated)
+(0 real changes made)
+(502,001 missing values generated)
+(0 real changes made)
+(500,672 missing values generated)
+(0 real changes made)
+
+{com}. 
+. **forval s1 = (0000 0002:0344) (0992 0994:1002) (1424 1426:1462) (1696 1698:1708) 1840 1842 2054 2070 2074 2098 2108 2110   {c -(}
+. 
+. **Hospital infections**
+. 
+. capture drop n_13_0_0sum
+{txt}
+{com}. egen  n_13_0_0sum=rowtotal(ts_13*_0_0_yn) 
+{txt}
+{com}. 
+. 
+. capture drop infectionburdenhosp
+{txt}
+{com}. gen infectionburdenhosp=n_13_0_0sum
+{txt}
+{com}. 
+. capture drop n_13_0_0hosp
+{txt}
+{com}. egen n_13_0_0hosp=anycount(n_130001_0_0-n_130343_0_0 n_130993_0_0-n_131003_0_0 n_131427_0_0-n_131463_0_0 n_131699_0_0-n_131709_0_0 n_131841_0_0 n_131843_0_0  n_132055_0_0 n_132071_0_0 n_132075_0_0 n_132099_0_0 n_132111_0_0), values(40 41)
+{res}{txt}
+{com}. 
+. replace infectionburdenhosp=0 if n_13_0_0hosp==0
+{txt}(112,673 real changes made)
+
+{com}. 
+. 
+. capture drop time_baseline
+{txt}
+{com}. egen time_baseline=rmean(ts_13*time)
+{txt}(328,882 missing values generated)
+
+{com}. 
+. su time_baseline if time_baseline>-25550 & infectionburdenhosp~=0
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+time_basel~e {c |}{res}     60,823   -3730.799    4440.661     -25409         -1
+{txt}
+{com}. 
+. histogram time_baseline if time_baseline>-25550 & infectionburdenhosp~=0
+{txt}(bin={res}47{txt}, start={res}-25409{txt}, width={res}540.59574{txt})
+{res}{txt}
+{com}. 
+. graph save "FIGURES4A.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4A.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4A.gph} saved
+
+{com}. 
+. 
+. **Non-hospital infections**
+. 
+. capture drop n_13_0_0sum
+{txt}
+{com}. egen  n_13_0_0sum=rowtotal(ts_13*_0_0_yn) 
+{txt}
+{com}. 
+. capture drop infectionburdennonhosp
+{txt}
+{com}. gen infectionburdennonhosp=n_13_0_0sum
+{txt}
+{com}. 
+. 
+. capture drop n_13_0_0hosp
+{txt}
+{com}. egen n_13_0_0hosp=anycount(n_130001_0_0-n_130343_0_0 n_130993_0_0-n_131003_0_0 n_131427_0_0-n_131463_0_0 n_131699_0_0-n_131709_0_0 n_131841_0_0 n_131843_0_0  n_132055_0_0 n_132071_0_0 n_132075_0_0 n_132099_0_0 n_132111_0_0), values(40 41)
+{res}{txt}
+{com}. 
+. 
+. replace infectionburdennonhosp=0 if n_13_0_0hosp~=0
+{txt}(60,834 real changes made)
+
+{com}. 
+. 
+. su time_baseline if time_baseline>-25550 & infectionburdennonhosp~=0
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+time_basel~e {c |}{res}    112,616   -5943.461    5993.713     -25526         -1
+{txt}
+{com}. 
+. histogram time_baseline if time_baseline>-25550 & infectionburdennonhosp~=0
+{txt}(bin={res}50{txt}, start={res}-25526{txt}, width={res}510.5{txt})
+{res}{txt}
+{com}. 
+. graph save "FIGURES4B.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4B.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4B.gph} saved
+
+{com}. 
+. 
+. 
+. **All infections**
+. 
+. capture drop n_13_0_0sum
+{txt}
+{com}. egen  n_13_0_0sum=rowtotal(ts_13*_0_0_yn) 
+{txt}
+{com}. 
+. capture drop infectionburden
+{txt}
+{com}. gen infectionburden=n_13_0_0sum
+{txt}
+{com}. 
+. 
+. su time_baseline if time_baseline>-25550 & infectionburden~=0
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+time_basel~e {c |}{res}    173,439   -5167.507    5599.672     -25526         -1
+{txt}
+{com}. 
+. histogram time_baseline if time_baseline>-25550 & infectionburden~=0
+{txt}(bin={res}52{txt}, start={res}-25526{txt}, width={res}490.86538{txt})
+{res}{txt}
+{com}. 
+. graph save "FIGURES4C.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4C.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4C.gph} saved
+
+{com}. 
+. 
+. graph combine "FIGURES4A.gph" "FIGURES4B.gph" "FIGURES4C.gph"
+{res}{txt}
+{com}. graph save "FIGURES4.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4.gph} saved
+
+{com}. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\INFECTBURDEN_UKB.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. 
+. //STEP 15: MERGE DATASETS TOGETHER//
+. 
+. 
+. use "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. sort n_eid
+{txt}
+{com}. capture drop _merge
+{txt}
+{com}. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. use "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\INFECTBURDEN_UKB",clear
+{txt}
+{com}. sort n_eid
+{txt}
+{com}. capture drop _merge
+{txt}
+{com}. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\INFECTBURDEN_UKB.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. use "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. sort n_eid
+{txt}
+{com}. capture drop _merge
+{txt}
+{com}. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. merge n_eid using "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\INFECTBURDEN_UKB"
+{txt}{p}
+(you are using old
+{bf:merge} syntax; see
+{bf:{help merge:[D] merge}} for new syntax)
+{p_end}
+
+{com}. sort n_eid
+{txt}
+{com}. capture drop _merge
+{txt}
+{com}. 
+. 
+. save "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM", replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. 
+. //STEP 16: DETERMINE FINAL ANALYTIC SAMPLE SIZE/////
+. 
+. use "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. 
+. **Sample 1**
+. 
+. capture drop sample1
+{txt}
+{com}. gen sample1=.
+{txt}(502,389 missing values generated)
+
+{com}. replace sample1=1 if baselineage~=. 
+{txt}(502,386 real changes made)
+
+{com}. replace sample1=0 if sample1~=1
+{txt}(3 real changes made)
+
+{com}. 
+. tab sample1
+
+    {txt}sample1 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}          3        0.00        0.00
+{txt}          1 {c |}{res}    502,386      100.00      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+{txt}
+{com}. 
+. **Sample 2: >=50 y**
+. 
+. capture drop sample2
+{txt}
+{com}. gen sample2=.
+{txt}(502,389 missing values generated)
+
+{com}. replace sample2=1 if baselineage>=50 & baselineage~=.
+{txt}(384,619 real changes made)
+
+{com}. replace sample2=0 if sample2~=1
+{txt}(117,770 real changes made)
+
+{com}. 
+. tab sample2
+
+    {txt}sample2 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    117,770       23.44       23.44
+{txt}          1 {c |}{res}    384,619       76.56      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+{txt}
+{com}. 
+. **Sample 3: exclude those with missing LE8, INFECTIOUS BURDEN SCORES**
+. 
+. capture drop sample3
+{txt}
+{com}. gen sample3=.
+{txt}(502,389 missing values generated)
+
+{com}. replace sample3=1 if baselineage>=50 & baselineage~=. & LE8_TOTALSCORE~=. & LE8_LIFESTYLE~=. & LE8_BIOLOGICAL~=. & infectionburden~=. & householdsize~=. &SES~=. &ethnicity2~=. 
+{txt}(355,233 real changes made)
+
+{com}. replace sample3=0 if sample3~=1
+{txt}(147,156 real changes made)
+
+{com}. 
+. tab sample3
+
+    {txt}sample3 {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    147,156       29.29       29.29
+{txt}          1 {c |}{res}    355,233       70.71      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+{txt}
+{com}. 
+. **Sample 4: final sample: exclude prevalent dementia cases and incident dementia cases within a year**
+. 
+. stset Age_dementia, failure(dem_diag==1) enter(baselineage) id(n_eid) scale(1)
+
+{txt}Survival-time data settings
+
+{col 12}ID variable: {res}n_eid
+{col 10}{txt}Failure event: {res}dem_diag==1
+{col 1}{txt}Observed time interval: {res}(Age_dementia[_n-1], Age_dementia]
+{col 6}{txt}Enter on or after: {res}time baselineage
+{col 6}{txt}Exit on or before: {res}failure
+
+{txt}{hline 74}
+{res}    502,389{txt}  total observations
+{res}          3{txt}  event time missing (Age_dementia>=.){col 61}PROBABLE ERROR
+{res}        228{txt}  observations end on or before {bf:enter()}
+{hline 74}
+{res}    502,158{txt}  observations remaining, representing
+{res}    502,158{txt}  subjects
+{res}      7,668{txt}  failures in single-failure-per-subject data
+{res}  6,208,727{txt}  total analysis time at risk and under observation
+                                                At risk from t = {res}        0
+                                     {txt}Earliest observed entry t = {res} 37.41821
+                                          {txt}Last observed exit t = {res} 87.63313
+{txt}
+{com}. 
+. capture drop sample4
+{txt}
+{com}. gen sample4=.
+{txt}(502,389 missing values generated)
+
+{com}. replace sample4=1 if (sample3==1 & priordem==0 & _t~=.) | (sample3==1 & time01_1Ayears>1 & time01_1Ayears~=. & dem_diag==1 & _t~=.)
+{txt}(355,046 real changes made)
+
+{com}. replace sample4=0 if sample4~=1
+{txt}(147,343 real changes made)
+
+{com}. 
+. 
+. capture drop sample_final
+{txt}
+{com}. gen sample_final=sample4
+{txt}
+{com}. 
+. tab sample_final
+
+{txt}sample_fina {c |}
+          l {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          0 {c |}{res}    147,343       29.33       29.33
+{txt}          1 {c |}{res}    355,046       70.67      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}    502,389      100.00
+{txt}
+{com}. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. //STEP 17: stset for dementia and AD incidence and estimate median age and percentiles, plus incidence rates across sex and racial groups//
+. 
+. use "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. 
+. **************RACE_ETHN****************************
+. capture drop RACE_ETHN
+{txt}
+{com}. gen RACE_ETHN=ethnicity2
+{txt}
+{com}. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. *************stsum code******************************
+. 
+. 
+. **AD INCIDENCE**
+. 
+. stset Age_AD, failure(ad_diag==1) enter(baselineage) id(n_eid) scale(1)
+
+{txt}Survival-time data settings
+
+{col 12}ID variable: {res}n_eid
+{col 10}{txt}Failure event: {res}ad_diag==1
+{col 1}{txt}Observed time interval: {res}(Age_AD[_n-1], Age_AD]
+{col 6}{txt}Enter on or after: {res}time baselineage
+{col 6}{txt}Exit on or before: {res}failure
+
+{txt}{hline 74}
+{res}    502,389{txt}  total observations
+{res}          3{txt}  event time missing (Age_AD>=.){col 61}PROBABLE ERROR
+{res}         18{txt}  observations end on or before {bf:enter()}
+{hline 74}
+{res}    502,368{txt}  observations remaining, representing
+{res}    502,368{txt}  subjects
+{res}      3,272{txt}  failures in single-failure-per-subject data
+{res}  6,221,064{txt}  total analysis time at risk and under observation
+                                                At risk from t = {res}        0
+                                     {txt}Earliest observed entry t = {res} 37.41821
+                                          {txt}Last observed exit t = {res} 87.63313
+{txt}
+{com}. 
+. stsum if sample4==1
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 4,364,749.2   .0006106{col 40}   355046          .         .         .
+{txt}
+{com}. stsum if sample4==1  & RACE_ETHN==0
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 4,186,120.1   .0006142{col 40}   340214          .         .         .
+{txt}
+{com}. stsum if sample4==1  & RACE_ETHN==1 | RACE_ETHN==2 | RACE_ETHN==3
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 310,670.172   .0003863{col 40}    25530          .         .         .
+{txt}
+{com}. stsum if sample4==1 & sex==1
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 2,004,595.1    .000658{col 40}   164922          .         .         .
+{txt}
+{com}. stsum if sample4==1 & sex==2
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 2,360,154.1   .0005703{col 40}   190124          .         .         .
+{txt}
+{com}. 
+. stptime if sample4==1
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 4364749.2{col 29}    2665{col 39} .00061057{col 51} .0005878{col 63} .0006342
+{txt}
+{com}. stptime if sample4==1  & RACE_ETHN==0
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 4186120.1{col 29}    2571{col 39} .00061417{col 51} .0005909{col 63} .0006384
+{txt}
+{com}. stptime if sample4==1  & RACE_ETHN==1 | RACE_ETHN==2 | RACE_ETHN==3
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 310670.17{col 29}     120{col 39} .00038626{col 51}  .000323{col 63} .0004619
+{txt}
+{com}. 
+. stptime if sample4==1 & sex==1
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 2004595.1{col 29}    1319{col 39} .00065799{col 51} .0006234{col 63} .0006945
+{txt}
+{com}. stptime if sample4==1 & sex==2
+
+{col 10}{txt}Failure {bf:_d}: {res}ad_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_AD
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 2360154.1{col 29}    1346{col 39}  .0005703{col 51} .0005406{col 63} .0006016
+{txt}
+{com}. 
+. 
+. 
+. **DEMENTIA INCIDENCE**
+. 
+. stset Age_dementia, failure(dem_diag==1) enter(baselineage) id(n_eid) scale(1)
+
+{txt}Survival-time data settings
+
+{col 12}ID variable: {res}n_eid
+{col 10}{txt}Failure event: {res}dem_diag==1
+{col 1}{txt}Observed time interval: {res}(Age_dementia[_n-1], Age_dementia]
+{col 6}{txt}Enter on or after: {res}time baselineage
+{col 6}{txt}Exit on or before: {res}failure
+
+{txt}{hline 74}
+{res}    502,389{txt}  total observations
+{res}          3{txt}  event time missing (Age_dementia>=.){col 61}PROBABLE ERROR
+{res}        228{txt}  observations end on or before {bf:enter()}
+{hline 74}
+{res}    502,158{txt}  observations remaining, representing
+{res}    502,158{txt}  subjects
+{res}      7,668{txt}  failures in single-failure-per-subject data
+{res}  6,208,727{txt}  total analysis time at risk and under observation
+                                                At risk from t = {res}        0
+                                     {txt}Earliest observed entry t = {res} 37.41821
+                                          {txt}Last observed exit t = {res} 87.63313
+{txt}
+{com}. 
+. 
+. stsum if sample4==1
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 4,356,387.3   .0014542{col 40}   355046          .         .         .
+{txt}
+{com}. stsum if sample4==1  & RACE_ETHN==0
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 4,178,138.4   .0014585{col 40}   340214          .         .         .
+{txt}
+{com}. stsum if sample4==1  & RACE_ETHN==1 | RACE_ETHN==2 | RACE_ETHN==3
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 309,997.964   .0010355{col 40}    25519          .         .         .
+{txt}
+{com}. stsum if sample4==1 & sex==1
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 1,999,977.2   .0017185{col 40}   164922          .         .         .
+{txt}
+{com}. stsum if sample4==1 & sex==2
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}{col 10}{c |}{col 26}Incidence{col 40}Number of{col 52}{c LT}{hline 6} Survival time {hline 5}{c RT}
+        {col 10}{c |} Time at risk{col 31}rate{col 41}subjects{col 57}25%{col 67}50%{col 77}75%
+{hline 9}{c +}{hline 69}
+   Total {c |} {res} 2,356,410.2   .0012298{col 40}   190124          .         .         .
+{txt}
+{com}. 
+. stptime if sample4==1
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 4356387.3{col 29}    6335{col 39} .00145419{col 51} .0014188{col 63} .0014904
+{txt}
+{com}. stptime if sample4==1  & RACE_ETHN==0
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 4178138.4{col 29}    6094{col 39} .00145854{col 51} .0014224{col 63} .0014956
+{txt}
+{com}. stptime if sample4==1  & RACE_ETHN==1 | RACE_ETHN==2 | RACE_ETHN==3
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 309997.96{col 29}     321{col 39} .00103549{col 51} .0009282{col 63} .0011552
+{txt}
+{com}. 
+. stptime if sample4==1 & sex==1
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 1999977.2{col 29}    3437{col 39} .00171852{col 51}  .001662{col 63} .0017769
+{txt}
+{com}. stptime if sample4==1 & sex==2
+
+{col 10}{txt}Failure {bf:_d}: {res}dem_diag==1
+{col 4}{txt}Analysis time {bf:_t}: {res}Age_dementia
+{col 3}{txt}Enter on or after: {res}time baselineage
+{col 9}{txt}ID variable: {res}n_eid
+
+{txt}Estimated person-time and incidence rate
+
+    Cohort{col 12}{c |}{col 15}Person-time{col 29}Failures{col 45}Rate{col 52}[95% conf. interval]
+{hline 11}{c +}{hline 59}
+     Total{col 12}{c |}{col 16}{res} 2356410.2{col 29}    2898{col 39} .00122984{col 51} .0011859{col 63} .0012754
+{txt}
+{com}. 
+. capture drop NoneWhite
+{txt}
+{com}. gen NoneWhite=.
+{txt}(502,389 missing values generated)
+
+{com}. replace NoneWhite=1 if RACE_ETHN==1 | RACE_ETHN==2 | RACE_ETHN==3
+{txt}(29,798 real changes made)
+
+{com}. replace NoneWhite=0 if RACE_ETHN==0
+{txt}(472,591 real changes made)
+
+{com}. 
+. 
+. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. 
+. 
+. 
+. 
+. //STEP 18: DETERMINE DIFFERENCES IN FINAL ANALYTIC SAMPLE VS. EXCLUDED SAMPLE BY BASIC SOCIO-DEMOGRAPHICS//
+. 
+. logistic sample_final baselineage sex RACE_ETHN if baselineage>=50 & baselineage~=.
+{res}
+{txt}{col 1}Logistic regression{col 56}{lalign 13:Number of obs}{col 69} = {res}{ralign 7:384,619}
+{txt}{col 56}{lalign 13:LR chi2({res:3})}{col 69} = {res}{ralign 7:7478.87}
+{txt}{col 56}{lalign 13:Prob > chi2}{col 69} = {res}{ralign 7:0.0000}
+{txt}{col 1}{lalign 14:Log likelihood}{col 15} = {res}{ralign 10:-100532.65}{txt}{col 56}{lalign 13:Pseudo R2}{col 69} = {res}{ralign 7:0.0359}
+
+{txt}{hline 13}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1}sample_final{col 14}{c |} Odds ratio{col 26}   Std. err.{col 38}      z{col 46}   P>|z|{col 54}     [95% con{col 67}f. interval]
+{hline 13}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 1}baselineage {c |}{col 14}{res}{space 2} .9228913{col 26}{space 2} .0011076{col 37}{space 1}  -66.86{col 46}{space 3}0.000{col 54}{space 4}  .920723{col 67}{space 3} .9250648
+{txt}{space 9}sex {c |}{col 14}{res}{space 2} .6497009{col 26}{space 2} .0082097{col 37}{space 1}  -34.13{col 46}{space 3}0.000{col 54}{space 4} .6338079{col 67}{space 3} .6659925
+{txt}{space 3}RACE_ETHN {c |}{col 14}{res}{space 2} .6313783{col 26}{space 2} .0056119{col 37}{space 1}  -51.74{col 46}{space 3}0.000{col 54}{space 4} .6204744{col 67}{space 3} .6424738
+{txt}{space 7}_cons {c |}{col 14}{res}{space 2} 3534.999{col 26}{space 2} 279.8742{col 37}{space 1}  103.20{col 46}{space 3}0.000{col 54}{space 4} 3026.897{col 67}{space 3} 4128.392
+{txt}{hline 13}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{p 0 6 2}Note: {bf:_cons} estimates baseline odds{txt}.{p_end}
+
+{com}. 
+. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. 
+. //STEP 19: CREATE LE8 TOTAL SCORE TERTILES////
+. 
+. ***********************LE8 TOTAL SCORE TERTILES*********************
+. 
+. use "E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. 
+. xtile LE8_TOTALSCOREtert=LE8_TOTALSCORE, nq(3)
+{txt}
+{com}. 
+. 
+. 
+. save, replace
+{txt}{p 0 4 2}
+file {bf}
+E:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM.dta{rm}
+saved
+{p_end}
+
+{com}. 
+. capture log close
+{smcl}
+{com}{sf}{ul off}

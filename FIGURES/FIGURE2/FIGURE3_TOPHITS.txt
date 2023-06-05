@@ -1,0 +1,27 @@
+RED:
+130070	Date A41 first reported (other septicaemia)	Certain infectious and parasitic diseases  
+130336	Date B95 first reported (streptococcus and staphylococcus as the cause of diseases classified to other chapters)
+132110	Date N72 first reported (inflammatory disease of cervix uteri)	Genitourinary system disorders  
+130338	Date B96 first reported (other bacterial agents as the cause of diseases classified to other chapters)
+131840	Date M00 first reported (pyogenic arthritis)	Musculoskeletal system and connective tissue disorders 
+130256	Date B50 first reported (plasmodium falciparum malaria)	Certain infectious and parasitic diseases  
+130330	Date B91 first reported (sequelae of poliomyelitis)	Certain infectious and parasitic diseases  
+130334	Date B94 first reported (sequelae of other and unspecified infectious and parasitic diseases)
+130088	Date A52 first reported (late syphilis)	Certain infectious and parasitic diseases  
+130340	Date B97 first reported (viral agents as the cause of diseases classified to other chapters)	
+
+
+BLUE:
+131462	Date J22 first reported (unspecified acute lower respiratory infection)	
+130176	Date B01 first reported (varicella [chickenpox])	
+131430	Date J03 first reported (acute tonsillitis)	
+130188	Date B07 first reported (viral warts)	  
+130184	Date B05 first reported (measles)	
+130178	Date B02 first reported (zoster [herpes zoster])	
+131442	Date J11 first reported (influenza, virus not identified)
+130216	Date B26 first reported (mumps)	Certain infectious and parasitic diseases  
+131708	Date L08 first reported (other local infections of skin and subcutaneous tissue)
+130186	Date B06 first reported (rubella [german measles])	Certain infectious and parasitic diseases  
+	
+
+

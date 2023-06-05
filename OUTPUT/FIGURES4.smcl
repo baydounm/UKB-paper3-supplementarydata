@@ -1,0 +1,95 @@
+{smcl}
+{com}{sf}{ul off}{txt}
+{com}. 
+. use "D:\16GBBACKUPUSB\BACKUP_USB_SEPTEMBER2014\May Baydoun_folder\UK_BIOBANK_PROJECT\UKB_PAPER3_LE8INFECTDEM\DATA\UKB_PAPER3_LE8INFECTDEM",clear
+{txt}
+{com}. 
+. 
+. **HOSPITAL TREATED INFECTION**
+. capture drop time_baseline
+{txt}
+{com}. egen time_baseline=rmean(ts_13*time)
+{txt}(328,882 missing values generated)
+
+{com}. 
+. su time_baseline if time_baseline>-25550 & infectionburdenhosp~=0 & sample_final==1
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+time_basel~e {c |}{res}     45,056   -3911.182    4703.992     -25404         -1
+{txt}
+{com}. 
+. histogram time_baseline if time_baseline>-25550 & infectionburdenhosp~=0 & sample_final==1
+{txt}(bin={res}46{txt}, start={res}-25404{txt}, width={res}552.23913{txt})
+{res}{txt}
+{com}. 
+. graph save "FIGURES4Afin.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4Afin.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4Afin.gph} saved
+
+{com}. 
+. 
+. **NON-HOSPITAL TREATED INFECTION**
+. 
+. su time_baseline if time_baseline>-25550 & infectionburdennonhosp~=0 & sample_final==1
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+time_basel~e {c |}{res}     79,228    -6296.42    6385.407     -25522         -1
+{txt}
+{com}. 
+. histogram time_baseline if time_baseline>-25550 & infectionburdennonhosp~=0 & sample_final==1
+{txt}(bin={res}48{txt}, start={res}-25522{txt}, width={res}531.6875{txt})
+{res}{txt}
+{com}. 
+. graph save "FIGURES4Bfin.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4Bfin.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4Bfin.gph} saved
+
+{com}. 
+. 
+. **TOTAL INFECTION BURDEN**
+. 
+. su time_baseline if time_baseline>-25550 & infectionburden~=0 & sample_final==1
+
+{txt}    Variable {c |}        Obs        Mean    Std. dev.       Min        Max
+{hline 13}{c +}{hline 57}
+time_basel~e {c |}{res}    124,284   -5431.712    5943.772     -25522         -1
+{txt}
+{com}. 
+. histogram time_baseline if time_baseline>-25550 & infectionburden~=0 & sample_final==1
+{txt}(bin={res}50{txt}, start={res}-25522{txt}, width={res}510.42{txt})
+{res}{txt}
+{com}. 
+. graph save "FIGURES4Cfin.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4Cfin.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4Cfin.gph} saved
+
+{com}. 
+. 
+. graph combine "FIGURES4Afin.gph" "FIGURES4Bfin.gph" "FIGURES4Cfin.gph"
+{res}{txt}
+{com}. graph save "FIGURES4fin.gph", replace
+{txt}{p 0 4 2}
+(file {bf}
+FIGURES4fin.gph{rm}
+not found)
+{p_end}
+{res}{txt}file {bf:FIGURES4fin.gph} saved
+
+{com}. 
+. capture log close
+{smcl}
+{com}{sf}{ul off}
